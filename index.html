@@ -15,14 +15,12 @@
             --primary-color: #0056b3; /* 学术蓝 */
             --bg-color: #f8f9fa;
             --text-color: #212529;
-            --header-height: 400px; /* 顶部背景图高度加大，更大气 */
-            
-            /* 【关键修改】宽屏设定：占屏幕宽度的 85% */
-            --container-width: 85%; 
+            --header-height: 400px; 
+            --container-width: 85%; /* 宽屏设定 */
         }
 
         body {
-            /* 【关键修改】字体栈：优先使用 Roboto，紧接着是支持 IPA 音标的系统字体 */
+            /* 字体栈 */
             font-family: 'Roboto', "Arial Unicode MS", "Lucida Sans Unicode", "Segoe UI", sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
@@ -35,7 +33,7 @@
         a { color: var(--primary-color); text-decoration: none; transition: 0.2s; }
         a:hover { text-decoration: underline; color: #003d82; }
 
-        /* === 导航栏 === */
+        /* 导航栏 */
         .navbar {
             position: fixed;
             top: 0; left: 0; width: 100%;
@@ -47,7 +45,7 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
         .nav-content {
-            width: var(--container-width); /* 跟随全局宽度 */
+            width: var(--container-width);
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
@@ -58,10 +56,9 @@
         .nav-links a { font-size: 1rem; color: #555; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
         .nav-links a:hover { color: var(--primary-color); text-decoration: none; }
 
-        /* === 顶部大图 (Hero) === */
+        /* 顶部大图 */
         .hero-header {
             height: var(--header-height);
-            /* 确保你的仓库里有 bg.jpg */
             background-image: url('./bg.jpg');
             background-size: cover;
             background-position: center;
@@ -74,7 +71,6 @@
         }
         .hero-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            /* 加深一点遮罩，让文字更清晰 */
             background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.6));
             z-index: 1;
         }
@@ -84,19 +80,19 @@
             color: #fff;
             padding: 0 20px;
         }
-        .hero-text h1 { font-size: 3.5rem; margin-bottom: 15px; text-shadow: 2px 2px 10px rgba(0,0,0,0.6); }
-        .hero-text p { font-size: 1.4rem; font-weight: 400; text-shadow: 1px 1px 6px rgba(0,0,0,0.6); }
+        /* 这里删掉了大标题样式，因为名字已经删了 */
+        .hero-text p { font-size: 1.8rem; font-weight: 400; text-shadow: 1px 1px 6px rgba(0,0,0,0.6); margin: 0; font-family: 'Newsreader', serif; font-style: italic;}
 
-        /* === 主容器 === */
+        /* 主容器 */
         .container { 
-            width: var(--container-width); /* 关键：宽屏 */
+            width: var(--container-width); 
             margin: 0 auto; 
             position: relative; 
         }
 
-        /* === 个人信息区 (Profile) === */
+        /* 个人信息区 */
         .profile-section {
-            margin-top: -120px; /* 往上提，压住背景图 */
+            margin-top: -120px;
             margin-bottom: 60px;
             position: relative;
             z-index: 10;
@@ -104,7 +100,6 @@
             align-items: flex-end;
             gap: 40px;
         }
-        /* 确保你的仓库里有 profile.jpg (全小写) */
         .avatar { 
             width: 230px; height: 230px; 
             border-radius: 12px; 
@@ -126,8 +121,18 @@
             color: #222; 
             text-shadow: 2px 2px 4px rgba(255,255,255,0.9); 
         }
+        
+        /* 新增：IPA 音标的独立样式 */
+        .profile-ipa {
+            font-family: 'Arial Unicode MS', 'Lucida Sans Unicode', sans-serif;
+            font-size: 1.2rem;
+            color: #555;
+            margin-top: 5px; /* 与名字的间距 */
+            font-weight: 400;
+        }
+
         .profile-title { 
-            font-size: 1.2rem; 
+            font-size: 1.1rem; 
             color: #444; 
             margin-top: 15px; 
             margin-bottom: 20px; 
@@ -149,10 +154,10 @@
         }
         .social-btn:hover { background: #f0f0f0; text-decoration: none; color: #0056b3; transform: translateY(-2px); }
 
-        /* === 内容板块 (Content) === */
+        /* 内容板块 */
         .content-section {
             background: #fff;
-            padding: 60px; /* 内边距加大 */
+            padding: 60px;
             margin-bottom: 50px;
             border-radius: 12px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.04);
@@ -163,10 +168,8 @@
         h2 { border-bottom: 2px solid #f0f0f0; padding-bottom: 15px; margin-top: 0; margin-bottom: 30px; font-size: 1.8rem; color: #111; }
         h3 { font-size: 1.4rem; margin-top: 40px; margin-bottom: 20px; color: #333; }
 
-        /* 【关键修改】取消了 max-width 限制，让文字铺满宽屏 */
         p { margin-bottom: 15px; text-align: justify; color: #444; max-width: 100%; }
         ul { padding-left: 20px; color: #444; max-width: 100%; }
-        
         li { margin-bottom: 10px; }
         .news-list li::before { content: "•"; color: #0056b3; font-weight: bold; position: absolute; left: 5px; font-size: 1.2em; line-height: 1; }
 
@@ -177,18 +180,45 @@
         .pub-links { margin-top: 8px; }
         .pub-links a { font-size: 0.9rem; margin-right: 15px; font-weight: 600; }
 
-        /* Research Card Style - 自动适应宽屏，四列布局 */
-        .research-cards { display: grid; grid-template-columns: repeat(auto-fit,minmax(300px,1fr)); gap: 30px; margin-top: 30px; }
-        .research-card { background: #fbfbfb; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); transition: transform 0.3s, box-shadow 0.3s; border: 1px solid #eee;}
-        .research-card:hover { transform: translateY(-5px); box-shadow: 0 12px 30px rgba(0,0,0,0.1); border-color: var(--primary-color); }
-        .research-card h4 { margin-top: 0; color: var(--primary-color); font-size: 1.3rem; margin-bottom: 15px; }
+        /* Research Cards */
+        .research-cards { 
+            display: flex; 
+            justify-content: space-between; 
+            gap: 20px; 
+            margin-top: 30px; 
+        }
+        .research-card { 
+            flex: 1; 
+            background: #fbfbfb; 
+            padding: 25px; 
+            border-radius: 12px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03); 
+            transition: transform 0.3s, box-shadow 0.3s; 
+            border: 1px solid #eee;
+            min-width: 0; 
+        }
+        .research-card:hover { 
+            transform: translateY(-5px); 
+            box-shadow: 0 12px 30px rgba(0,0,0,0.1); 
+            border-color: var(--primary-color); 
+        }
+        .research-card h4 { 
+            margin-top: 0; 
+            color: var(--primary-color); 
+            font-size: 1.2rem; 
+            margin-bottom: 15px; 
+            height: 50px; 
+            display: flex;
+            align-items: center;
+        }
+        .research-card p { font-size: 0.95rem; line-height: 1.6; }
 
         /* Footer */
         .footer { text-align: center; color: #999; font-size: 0.9rem; margin-bottom: 60px; }
 
-        /* === 手机端适配 === */
+        /* 手机端适配 */
         @media (max-width: 768px) {
-            :root { --container-width: 92%; } /* 手机上保留一点边距 */
+            :root { --container-width: 92%; }
             .nav-content { flex-direction: column; gap: 10px; width: 100%; }
             .nav-links { gap: 15px; font-size: 0.85rem; flex-wrap: wrap; justify-content: center; }
             .profile-section { flex-direction: column; align-items: center; text-align: center; margin-top: -80px; gap: 20px;}
@@ -196,7 +226,8 @@
             .content-section { padding: 25px; }
             .hero-header { height: 280px; margin-top: 80px; }
             .profile-name { font-size: 2.2rem; }
-            .research-cards { grid-template-columns: 1fr; }
+            .research-cards { flex-direction: column; }
+            .research-card h4 { height: auto; } 
         }
     </style>
 </head>
@@ -217,8 +248,7 @@
 <div class="hero-header">
     <div class="hero-overlay"></div>
     <div class="hero-text">
-        <h1>Lishan Li (李丽珊)</h1>
-        <p>Decoding the melody of speech | Phonetics & Computation</p>
+        <p>"Decoding the melody of speech"</p>
     </div>
 </div>
 
@@ -227,10 +257,12 @@
         <img src="./profile.jpg" alt="Lishan Li" class="avatar">
         
         <div class="profile-info">
-            <h1 class="profile-name">Lishan Li <span style="font-family: 'Arial Unicode MS', 'Lucida Sans Unicode', sans-serif; font-weight: 400; font-size: 0.6em; vertical-align: middle;">[li²¹³ li⁵¹ ʂan⁵⁵]</span></h1>
+            <h1 class="profile-name">Lishan Li (李丽珊)</h1>
+            <div class="profile-ipa">[li²¹³ li⁵¹ ʂan⁵⁵]</div>
+            
             <div class="profile-title">
-                <strong>Research Assistant</strong> @ School of Chinese Language and Literature, BNU<br>
-                M.A. in Chinese Linguistics | B.A. in Chinese Lit
+                School of Chinese Language and Literature, Beijing Normal University<br>
+                M.A. in Chinese Linguistics | B.A. in Chinese Literature
             </div>
 
             <div class="social-links">
@@ -250,16 +282,15 @@
             My research interests lie in the evolution of tones in Chinese dialects, specifically how they merge over time and how they interact with musical melodies. I combine traditional <strong>fieldwork</strong> (recording 180+ children; documenting endangered dialects) with <strong>computational modeling</strong> (Python/R) to decode the mechanism of sound change.
         </p>
         <p>
-            I obtained my M.A. from <strong>Beijing Normal University</strong> (Outstanding Graduate) and B.A. from <strong>Shandong University</strong> (GPA: 4.03/5.0, Rank: 6/102).
+            I obtained my M.A. from <strong>Beijing Normal University</strong> and B.A. from <strong>Shandong University</strong>.
         </p>
     </div>
 
     <div class="content-section" id="news">
         <h2>🔥 News</h2>
         <ul class="news-list">
-            <li><strong>[Sep 2025]</strong> Started full-time position as Research Assistant at BNU.</li>
             <li><strong>[Aug 2025]</strong> Presented our work on <em>Cantonese Tone Merging</em> orally at <strong>Interspeech 2025</strong>! 🎤</li>
-            <li><strong>[Jun 2025]</strong> Graduated from BNU as an <strong>Outstanding Graduate of Beijing</strong>.</li>
+            <li><strong>[Jun 2025]</strong> Graduated from Beijing Normal University.</li>
             <li><strong>[2024]</strong> Paper on dialect loss and tone perception published in <strong>JASA</strong> (Vol. 156).</li>
         </ul>
     </div>
@@ -274,25 +305,25 @@
             <div class="research-card">
                 <h4>1. Mechanisms of Sound Change</h4>
                 <p>
-                    I investigate how phonetic variation is transformed into phonological restructuring, with a particular focus on tone languages. A central component of my research concerns <strong>Cantonese tone evolution</strong>, especially the interaction between morphological tone alternation (<em>Pinjam</em>) and ongoing tonal mergers. I explore whether the functional load of morphology can delay or prevent merger.
+                    I investigate how phonetic variation is transformed into phonological restructuring, with a particular focus on tone languages. A central component concerns <strong>Cantonese tone evolution</strong> and the interaction between morphological tone alternation and ongoing tonal mergers.
                 </p>
             </div>
             <div class="research-card">
-                <h4>2. Bilingualism & Perceptual Plasticity</h4>
+                <h4>2. Bilingualism & Plasticity</h4>
                 <p>
-                    A second major line of my work investigates how language experience shapes perceptual sensitivity. I demonstrate that speech perception is not fixed: listeners continually reweight multiple dimensions—such as F0, duration, or voice quality—depending on their linguistic background. I focus especially on bilinguals and bi-dialectal speakers.
+                    I investigate how language experience shapes perceptual sensitivity. I demonstrate that speech perception is not fixed: listeners continually reweight multiple dimensions—such as F0, duration, or voice quality—depending on their linguistic background.
                 </p>
             </div>
             <div class="research-card">
                 <h4>3. Language Acquisition</h4>
                 <p>
-                    I extend my expertise in prosody and acoustic analysis to developmental populations. My current project focuses on children with <strong>Autism Spectrum Disorder (ASD)</strong>. I examine how ASD affects the production and perception of suprasegmental features—including intonation, lexical tone, and voice quality—aiming to identify reliable acoustic markers.
+                    I extend my expertise in prosody to developmental populations. My current project focuses on children with <strong>Autism Spectrum Disorder (ASD)</strong>, examining suprasegmental features to identify reliable acoustic markers.
                 </p>
             </div>
             <div class="research-card">
                 <h4>4. Multidimensional Cue Dynamics</h4>
                 <p>
-                    Across all areas of my research lies a unifying methodological interest: how listeners integrate multiple acoustic cues (pitch, duration, spectral tilt, voice quality) and how these strategies shift in different environments, such as tonal mergers or noisy signals.
+                    Across all areas of my research lies a unifying interest: how listeners integrate multiple acoustic cues (pitch, duration, spectral tilt) and how these strategies shift in different environments, such as tonal mergers or noisy signals.
                 </p>
             </div>
         </div>
