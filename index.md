@@ -8,22 +8,22 @@
         /* === 全局设置 === */
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            background-color: #f4f7f6; /* 稍微灰一点的背景，更有质感 */
+            background-color: #f4f7f6;
             color: #333;
             margin: 0;
-            line-height: 1.6;
-            padding-top: 60px; /* 给固定导航栏留位置 */
+            line-height: 1.7; /* 增加行高，阅读体验更好 */
+            padding-top: 60px;
         }
         a { color: #0056b3; text-decoration: none; transition: color 0.2s;}
         a:hover { color: #003d82; text-decoration: underline; }
 
-        /* === 顶部导航栏 (新增) === */
+        /* === 顶部导航栏 === */
         .navbar {
             position: fixed;
             top: 0;
             width: 100%;
             background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px); /* 毛玻璃效果，很潮 */
+            backdrop-filter: blur(10px);
             border-bottom: 1px solid #eaeaea;
             z-index: 1000;
             box-shadow: 0 2px 5px rgba(0,0,0,0.05);
@@ -66,11 +66,19 @@
             margin-bottom: 15px;
             transition: transform 0.3s;
         }
-        .avatar:hover { transform: scale(1.05); } /* 鼠标放上去会放大一点 */
+        .avatar:hover { transform: scale(1.05); }
         
         .name { font-size: 1.6em; font-weight: 700; margin-bottom: 5px; color: #222; }
-        .title { color: #666; font-size: 0.95em; margin-bottom: 20px; font-weight: 400; }
         
+        .education-box {
+            margin-bottom: 20px;
+            color: #666;
+            font-size: 0.9em;
+        }
+        .edu-item { margin-bottom: 8px; }
+        .edu-degree { font-weight: 600; color: #444; display: block; }
+        .edu-school { font-weight: 400; }
+
         .contact-box {
             text-align: left;
             font-size: 0.9em;
@@ -80,8 +88,11 @@
             border-radius: 12px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.05);
         }
-        .contact-item { margin-bottom: 12px; display: flex; align-items: center; }
-        .icon { margin-right: 10px; width: 20px; text-align: center; }
+        .contact-item { margin-bottom: 12px; display: flex; align-items: center; overflow: hidden;}
+        .contact-item a { color: #333; }
+        .contact-item a:hover { color: #0056b3; }
+        .icon { margin-right: 10px; width: 20px; text-align: center; flex-shrink: 0;}
+        
         .btn-cv {
             display: block;
             background-color: #0056b3;
@@ -105,39 +116,53 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.03);
         }
         
-        /* 章节样式 */
-        section { margin-bottom: 50px; scroll-margin-top: 80px; /* 防止被导航栏挡住 */ }
+        section { margin-bottom: 60px; scroll-margin-top: 80px; }
+        
+        /* 标题样式 */
         h2 { 
-            font-size: 1.5em; 
-            margin-bottom: 20px; 
+            font-size: 1.6em; 
+            margin-bottom: 25px; 
             color: #111; 
             border-bottom: 2px solid #f0f0f0; 
             padding-bottom: 10px;
-            display: flex;
-            align-items: center;
         }
-        h2 span { margin-right: 10px; }
+        h3 {
+            font-size: 1.25em;
+            color: #2c3e50;
+            margin-top: 35px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        /* 段落与列表样式 */
+        p { margin-bottom: 15px; color: #444; text-align: justify; }
+        
+        /* 针对 Research 部分的列表优化 */
+        .research-list {
+            margin-top: 10px;
+            margin-bottom: 20px;
+            padding-left: 20px;
+        }
+        .research-list li {
+            margin-bottom: 8px;
+            color: #555;
+        }
 
-        /* 列表与文章样式 */
+        /* News 列表样式 */
         .news-list { list-style: none; padding: 0; }
         .news-list li { margin-bottom: 12px; padding-left: 20px; position: relative; color: #444; }
         .news-list li::before { content: "•"; color: #0056b3; font-weight: bold; position: absolute; left: 0; }
         
+        /* Publications 样式 */
         .paper-item { margin-bottom: 25px; }
         .paper-title { font-weight: 700; color: #222; font-size: 1.05em; }
         .paper-authors { color: #555; font-size: 0.95em; margin: 4px 0; }
         .paper-venue { font-style: italic; color: #0056b3; font-size: 0.9em; }
         
-        .project-item { margin-bottom: 25px; }
-        .project-title { font-weight: 700; font-size: 1.1em; color: #333; margin-bottom: 5px;}
-        .project-desc { color: #555; font-size: 0.95em; text-align: justify;}
-
-        /* 手机适配 */
         @media (max-width: 768px) {
             .container { flex-direction: column; gap: 30px; margin-top: 20px; }
             .sidebar { width: 100%; }
-            .navbar .nav-links { display: none; } /* 手机上暂时隐藏导航链接，保持简洁 */
-            .navbar .nav-logo { margin: 0 auto; }
+            .navbar .nav-links { display: none; }
         }
     </style>
 </head>
@@ -160,12 +185,26 @@
         <img src="https://avatars.githubusercontent.com/u/9919?v=4" alt="Lishan Li" class="avatar">
         
         <div class="name">Lishan Li (李丽珊)</div>
-        <div class="title">M.A. in Chinese Linguistics<br>Beijing Normal University</div>
+        
+        <div class="education-box">
+            <div class="edu-item">
+                <span class="edu-degree">M.A. in Chinese Linguistics</span>
+                <span class="edu-school">Beijing Normal University</span>
+            </div>
+            <div class="edu-item" style="margin-top: 10px;">
+                <span class="edu-degree">B.A. in Chinese Lit</span>
+                <span class="edu-school">Shandong University</span>
+            </div>
+        </div>
         
         <div class="contact-box">
             <div class="contact-item"><span class="icon">📍</span> Beijing, China</div>
-            <div class="contact-item"><span class="icon">📧</span> lilishan0121@gmail.com</div>
-            <div class="contact-item"><span class="icon">🏫</span> School of Chinese Language & Lit, BNU</div>
+            <div class="contact-item"><span class="icon">📧</span> <a href="mailto:lilishan0121@gmail.com">lilishan0121@gmail.com</a></div>
+            
+            <div class="contact-item">
+                <span class="icon">🔬</span> 
+                <a href="https://www.researchgate.net/profile/Lishan-Li-3?ev=hdr_xprf" target="_blank">ResearchGate Profile</a>
+            </div>
             
             <a href="./Lishan_Li_CV_2025.pdf" class="btn-cv">Download CV</a>
         </div>
@@ -176,48 +215,87 @@
         <section id="about">
             <h2>👋 Introduction</h2>
             <p>
-                Hello! I am a linguistics researcher passionate about <strong>Phonetics</strong> and <strong>Dialectology</strong>.
+                Hello! I am a linguistics researcher passionate about <strong>Phonetics</strong>, <strong>Dialectology</strong>, and <strong>Language Acquisition</strong>.
             </p>
             <p>
-                My research interests lie in the evolution of tones in Chinese dialects, specifically how they merge over time and how they interact with musical melodies. I combine traditional <strong>fieldwork</strong> (recording diverse dialect speakers) with <strong>computational modeling</strong> (using Python/R) to decode the mechanism of sound change.
+                My research interests lie in the evolution of tones in Chinese dialects, specifically how they merge over time and how they interact with musical melodies. I combine traditional <strong>fieldwork</strong> with <strong>computational modeling</strong> (Python/R) to decode the mechanism of sound change.
             </p>
             <p>
-                I obtained my M.A. from <strong>Beijing Normal University</strong> [cite: 4, 5] and B.A. from <strong>Shandong University</strong>[cite: 11, 12].
+                I obtained my M.A. from <strong>Beijing Normal University</strong> (Outstanding Graduate) and B.A. from <strong>Shandong University</strong> (GPA: 4.03/5.0, Rank: 6/102).
             </p>
         </section>
 
         <section id="news">
             <h2>🔥 News</h2>
             <ul class="news-list">
-                <li><strong>[Aug 2025]</strong> Presented our work on <em>Cantonese Tone Merging</em> orally at <strong>Interspeech 2025</strong>. [cite: 27, 28]</li>
-                <li><strong>[Jun 2025]</strong> Graduated from Beijing Normal University. [cite: 7]</li>
-                <li><strong>[2024]</strong> Paper on dialect loss published in <strong>JASA</strong>. [cite: 20, 21]</li>
+                <li><strong>[Aug 2025]</strong> Presented our work on <em>Cantonese Tone Merging</em> orally at <strong>Interspeech 2025</strong>.</li>
+                <li><strong>[Jun 2025]</strong> Graduated from Beijing Normal University.</li>
+                <li><strong>[2024]</strong> Paper on dialect loss published in <strong>JASA</strong>.</li>
             </ul>
         </section>
 
         <section id="research">
-            <h2>🧪 Research Projects</h2>
-            
-            <div class="project-item">
-                <div class="project-title">Tone-Melody Interaction Across Chinese Dialects</div>
-                <div class="project-desc">
-                    Constructed a large-scale corpus of 2,000 Chinese folk songs to align melody (MIDI) with dialectal phonological data. Developed a computational pipeline to quantify tone-melody correspondence, revealing high tonal consistency in Cantonese and Minnan dialects. [cite: 52, 54, 55, 56]
-                </div>
-            </div>
+            <h2>🧪 Research Overview</h2>
+            <p>
+                My research program focuses on understanding how sound systems evolve, how listeners adapt to complex acoustic signals, and how these processes unfold across different populations—including bilingual speakers and children with atypical language development. I integrate experimental phonetics, speech perception, developmental linguistics, and comparative tonology to build a unified account of how tonal categories emerge, change, and are represented in the mind.
+            </p>
 
-            <div class="project-item">
-                <div class="project-title">Mechanism of Tone Acquisition in Bilingual Environments</div>
-                <div class="project-desc">
-                    Investigated Mandarin tone acquisition in children with dialect exposure. Recorded 182 children during fieldwork and found that dialect exposure causes persistent pitch target interference. [cite: 58, 60, 61, 62]
-                </div>
-            </div>
+            <h3>1. Mechanisms of Sound Change</h3>
+            <p>
+                I investigate how phonetic variation is transformed into phonological restructuring, with a particular focus on tone languages. My work examines how cognitive, morphological, and acoustic factors jointly shape pathways of sound change.
+            </p>
+            <p>
+                A central component of my research concerns Cantonese tone evolution, especially the interaction between morphological tone alternation (<em>Pinjam</em>) and ongoing tonal mergers. I explore whether the functional load of morphology can delay or prevent merger, evaluating competing hypotheses such as <strong>Static Storage</strong> vs. <strong>Dynamic Co-activation</strong> of tonal categories.
+            </p>
+            <p>Beyond Cantonese, I adopt a comparative approach to identify cross-linguistic regularities. Current projects include:</p>
+            <ul class="research-list">
+                <li><strong>Khmer:</strong> Tonogenesis and the emergence of new prosodic contrasts.</li>
+                <li><strong>Thai:</strong> Tonal evolution under contact-induced phonetic pressures.</li>
+                <li><strong>Wulian Mandarin:</strong> Segmental change illustrating how tonal and segmental systems co-evolve.</li>
+            </ul>
 
-            <div class="project-item">
-                <div class="project-title">Mechanisms of Chinese Tone Category Change</div>
-                <div class="project-desc">
-                    Investigated sound change mechanisms in Cantonese and Min dialects using acoustic experiments. Found that tone mergers in production are influenced by lexical competition and socioeconomic factors. [cite: 63, 66, 68, 69]
-                </div>
-            </div>
+            <h3>2. Bilingualism & Perceptual Plasticity</h3>
+            <p>
+                A second major line of my work investigates how language experience shapes perceptual sensitivity. I demonstrate that speech perception is not fixed: listeners continually reweight multiple dimensions—such as F0, duration, or voice quality—depending on their linguistic background.
+            </p>
+            <p>
+                I focus especially on bilinguals and bi-dialectal speakers. For example, I compare speakers of Changsha Mandarin (a tone-merging variety) with speakers of conservative varieties to test how merger patterns influence perceptual categories. Key questions include:
+            </p>
+            <ul class="research-list">
+                <li>How does bilingualism recalibrate perceptual attention to pitch vs. voice quality?</li>
+                <li>Do speakers from tone-merging dialects show reduced sensitivity to contrastive cues?</li>
+                <li>What kinds of perceptual “plasticity windows” exist in adulthood?</li>
+            </ul>
+            <p>
+                Using controlled AX/ABX perception tasks and mixed-effects modeling, I map how listeners dynamically adjust their weighting strategies in response to signal instability.
+            </p>
+
+            <h3>3. Language Acquisition: Typical & Atypical</h3>
+            <p>
+                I extend my expertise in prosody and acoustic analysis to developmental populations. My research investigates how children acquire tonal categories and how these processes differ in clinical contexts.
+            </p>
+            <p>
+                My current project focuses on children with <strong>Autism Spectrum Disorder (ASD)</strong>. I examine how ASD affects the production and perception of suprasegmental features—including intonation, lexical tone, and voice quality—aiming to identify reliable acoustic markers of atypical prosodic development. This work contributes to both theory and practice by:
+            </p>
+            <ul class="research-list">
+                <li>Revealing how prosodic categories emerge in the developing mind.</li>
+                <li>Identifying which acoustic dimensions are most vulnerable in atypical populations.</li>
+                <li>Providing quantitative tools for assessing prosodic development.</li>
+            </ul>
+
+            <h3>4. Multidimensional Cue Dynamics</h3>
+            <p>
+                Across all areas of my research lies a unifying methodological interest: how listeners integrate multiple acoustic cues and how these strategies shift in different environments. I examine how pitch, duration, spectral tilt, and voice quality interact, compete, or reinforce each other—especially under conditions of instability such as:
+            </p>
+            <ul class="research-list">
+                <li>Tonal mergers</li>
+                <li>Bilingual input</li>
+                <li>Atypical prosodic development</li>
+                <li>Noisy or ambiguous signals</li>
+            </ul>
+            <p>
+                Using fine-grained acoustic modeling, my work demonstrates that cue weighting is an adaptive, experience-driven process. This framework explains why populations diverge in their perception of contrasts and why certain sound changes accelerate while others stabilize.
+            </p>
         </section>
 
         <section id="publications">
@@ -226,26 +304,26 @@
             <div class="paper-item">
                 <div class="paper-title">The influence of dialect loss on tone perception: Diminishing voice quality cues in preserved tone contrast</div>
                 <div class="paper-authors">Zhang, Y., <strong>Li, L.</strong>, Lai, W., & Xu, X. (2024)</div>
-                <div class="paper-venue">Journal of the Acoustical Society of America (JASA), 156(6):3707-3722. [cite: 20, 21, 22]</div>
+                <div class="paper-venue">Journal of the Acoustical Society of America (JASA), 156(6):3707-3722.</div>
                 <div>[<a href="#">PDF</a>]</div>
             </div>
 
             <div class="paper-item">
                 <div class="paper-title">Lexical competition in the process of Cantonese tone merging: Diverse Impact Mechanisms Across Different Individuals and Tone Pairs</div>
                 <div class="paper-authors"><strong>Li, L.</strong>, Zhou, Y., & Xu, X. (2025)</div>
-                <div class="paper-venue">In Proc. of Interspeech 2025 (Oral Presentation). [cite: 27, 28]</div>
+                <div class="paper-venue">In Proc. of Interspeech 2025 (Oral Presentation).</div>
             </div>
 
             <div class="paper-item">
                 <div class="paper-title">Level-Tone Merger in Production and Perception: Study in two Chinese Min Dialects</div>
                 <div class="paper-authors">Wu, Y., <strong>Li, L.</strong>, & Xu, X. (2025)</div>
-                <div class="paper-venue">In Proc. of International Conference on Asian Language Processing (IALP). [cite: 29, 30]</div>
+                <div class="paper-venue">In Proc. of International Conference on Asian Language Processing (IALP).</div>
             </div>
             
             <div class="paper-item">
                 <div class="paper-title">Multiple Patterns of Merging Guangzhou Cantonese Tones in Production and Perception: Study on Youth Groups</div>
                 <div class="paper-authors"><strong>Li, L.</strong> & Xu, X. (2024)</div>
-                <div class="paper-venue">In Proc. of ISCSLP 2024 (Oral Presentation). [cite: 31, 32]</div>
+                <div class="paper-venue">In Proc. of ISCSLP 2024 (Oral Presentation).</div>
             </div>
 
         </section>
