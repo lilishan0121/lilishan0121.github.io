@@ -16,7 +16,7 @@
             --bg-color: #f8f9fa;
             --text-color: #212529;
             --header-height: 350px;
-            --container-width: 1100px;
+            --container-width: 1600px; /* 增宽从原来的1100px到1600px */
         }
 
         body {
@@ -44,7 +44,8 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
         .nav-content {
-            max-width: var(--container-width);
+            width: 90%;
+            max-width: var(--container-width); /* 与容器保持一致 */
             margin: 0 auto;
             padding: 0 20px;
             display: flex;
@@ -83,7 +84,13 @@
         .hero-text p { font-size: 1.2rem; font-weight: 500; text-shadow: 1px 1px 5px rgba(0,0,0,0.5); }
 
         /* Container */
-        .container { max-width: var(--container-width); margin: 0 auto; padding: 0 20px; position: relative; }
+        .container { 
+            width: 90%;           /* 百分比自适应屏幕 */
+            max-width: var(--container-width); /* 最大宽度1600px */
+            margin: 0 auto; 
+            padding: 0 20px; 
+            position: relative; 
+        }
 
         /* Profile */
         .profile-section {
@@ -125,7 +132,6 @@
         p { margin-bottom: 15px; text-align: justify; color: #444; max-width: 850px; }
         ul { padding-left: 20px; color: #444; max-width: 850px; }
         li { margin-bottom: 8px; }
-
         .news-list li::before { content: "•"; color: #0056b3; font-weight: bold; position: absolute; left: 5px; font-size: 1.2em; line-height: 1; }
 
         /* Publications */
@@ -215,7 +221,9 @@
     <div class="content-section" id="news">
         <h2>🔥 News</h2>
         <ul class="news-list">
+            <li><strong>[Sep 2025]</strong> Started full-time position as Research Assistant at BNU.</li>
             <li><strong>[Aug 2025]</strong> Presented our work on <em>Cantonese Tone Merging</em> orally at <strong>Interspeech 2025</strong>! 🎤</li>
+            <li><strong>[Jun 2025]</strong> Graduated from BNU as an <strong>Outstanding Graduate of Beijing</strong>.</li>
             <li><strong>[2024]</strong> Paper on dialect loss and tone perception published in <strong>JASA</strong> (Vol. 156).</li>
         </ul>
     </div>
@@ -272,4 +280,16 @@
             <span class="pub-title">Level-Tone Merger in Production and Perception: Study in two Chinese Min Dialects</span>
             <div class="pub-meta">Wu, Y., <strong>Li, L.</strong>, & Xu, X. (2025). <em>IALP</em>. (*Equal Contribution)</div>
         </div>
-       
+        <div class="pub-item">
+            <span class="pub-title">Multiple Patterns of Merging Guangzhou Cantonese Tones in Production and Perception: Study on Youth Groups</span>
+            <div class="pub-meta"><strong>Li, L.</strong> & Xu, X. (2024). <em>ISCSLP 2024</em>. (Oral Presentation)</div>
+        </div>
+    </div>
+
+    <div class="footer">
+        &copy; 2025 Lishan Li. Hosted on GitHub Pages.
+    </div>
+</div>
+
+</body>
+</html>
