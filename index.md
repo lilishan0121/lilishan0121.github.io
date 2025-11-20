@@ -16,11 +16,12 @@
             --bg-color: #f8f9fa;
             --text-color: #212529;
             --header-height: 350px;
-            --container-width: 1600px; /* 增宽从原来的1100px到1600px */
+            --container-width: 1400px; /* 建议：1600px有点太散了，1400px是比较舒服的大宽屏极限 */
         }
 
         body {
-            font-family: 'Roboto', sans-serif;
+            /* 修改处：增加了音标字体支持，防止 IPA 乱码 */
+            font-family: 'Roboto', "Arial Unicode MS", "Lucida Sans Unicode", "Segoe UI", sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
             margin: 0;
@@ -45,7 +46,7 @@
         }
         .nav-content {
             width: 90%;
-            max-width: var(--container-width); /* 与容器保持一致 */
+            max-width: var(--container-width);
             margin: 0 auto;
             padding: 0 20px;
             display: flex;
@@ -64,7 +65,7 @@
             background-size: cover;
             background-position: center;
             position: relative;
-            margin-top: 50px;
+            margin-top: 60px; /* 稍微加大一点，防止导航栏遮挡 */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -79,14 +80,15 @@
             position: relative;
             z-index: 2;
             color: #fff;
+            padding: 0 20px;
         }
         .hero-text h1 { font-size: 3rem; margin-bottom: 10px; text-shadow: 2px 2px 8px rgba(0,0,0,0.5); }
         .hero-text p { font-size: 1.2rem; font-weight: 500; text-shadow: 1px 1px 5px rgba(0,0,0,0.5); }
 
         /* Container */
         .container { 
-            width: 90%;           /* 百分比自适应屏幕 */
-            max-width: var(--container-width); /* 最大宽度1600px */
+            width: 90%;           
+            max-width: var(--container-width); 
             margin: 0 auto; 
             padding: 0 20px; 
             position: relative; 
@@ -111,7 +113,7 @@
         .social-btn { display: inline-block; padding: 6px 16px; border: 1px solid #ddd; border-radius: 20px; font-size: 0.9rem; margin-right: 10px; color: #555; background: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.05); margin-bottom: 5px; transition: all 0.2s; }
         .social-btn:hover { background: #f0f0f0; text-decoration: none; color: #0056b3; transform: translateY(-2px); }
 
-        /* Content Sections */
+        /* Content Sections (这里是你原代码出问题的地方) */
         .content-section {
             background: #fff;
             padding: 50px;
@@ -120,17 +122,20 @@
             box-shadow: 0 4px 20px rgba(0,0,0,0.04);
             border: 1px solid #f0f0f0;
             scroll-margin-top: 80px;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.8s ease-out;
+            
+            /* 默认透明，需要 JS 来激活 */
+            opacity: 0; 
+            transform: translateY(20px); 
+            transition: all 0.8s ease-out; 
         }
+        /* 只有加上 visible 类才会显示 */
         .content-section.visible { opacity: 1; transform: translateY(0); }
 
         h2 { border-bottom: 2px solid #f0f0f0; padding-bottom: 15px; margin-top: 0; margin-bottom: 25px; font-size: 1.6rem; color: #111; }
         h3 { font-size: 1.25rem; margin-top: 35px; margin-bottom: 15px; color: #333; }
 
-        p { margin-bottom: 15px; text-align: justify; color: #444; max-width: 850px; }
-        ul { padding-left: 20px; color: #444; max-width: 850px; }
+        p { margin-bottom: 15px; text-align: justify; color: #444; max-width: 900px; /* 正文限宽，防止读起来太累 */ }
+        ul { padding-left: 20px; color: #444; max-width: 900px; }
         li { margin-bottom: 8px; }
         .news-list li::before { content: "•"; color: #0056b3; font-weight: bold; position: absolute; left: 5px; font-size: 1.2em; line-height: 1; }
 
@@ -142,7 +147,7 @@
         .pub-links a { font-size: 0.85rem; margin-right: 10px; font-weight: 600; }
 
         /* Research Card Style */
-        .research-cards { display: grid; grid-template-columns: repeat(auto-fit,minmax(280px,1fr)); gap: 25px; margin-top: 20px; }
+        .research-cards { display: grid; grid-template-columns: repeat(auto-fit,minmax(300px,1fr)); gap: 25px; margin-top: 20px; }
         .research-card { background: #fdfdfd; padding: 25px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); transition: transform 0.3s, box-shadow 0.3s; }
         .research-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
         .research-card h4 { margin-top: 0; color: var(--primary-color); font-size: 1.2rem; margin-bottom: 10px; }
@@ -186,15 +191,14 @@
 </div>
 
 <div class="container">
-    <!-- Profile Section -->
     <div class="profile-section">
         <img src="./profile.jpg" alt="Lishan Li" class="avatar">
         <div class="profile-info">
-<h1 class="profile-name">Lishan Li [li²¹³ li⁵¹ ʂan⁵⁵] (李丽珊)</h1>
-<div class="profile-title">
-    M.A. in Chinese Linguistics | Beijing Normal University<br>
-    B.A. in Chinese language and Literature | Shandong University
-</div>
+            <h1 class="profile-name">Lishan Li <span style="font-family: 'Arial Unicode MS', 'Lucida Sans Unicode', sans-serif; font-weight: 400; font-size: 0.8em;">[li²¹³ li⁵¹ ʂan⁵⁵]</span> (李丽珊)</h1>
+            <div class="profile-title">
+                M.A. in Chinese Linguistics | Beijing Normal University<br>
+                B.A. in Chinese language and Literature | Shandong University
+            </div>
 
             <div class="social-links">
                 <a href="mailto:lilishan0121@gmail.com" class="social-btn">📧 Email</a>
@@ -204,7 +208,6 @@
         </div>
     </div>
 
-    <!-- About Section -->
     <div class="content-section" id="about">
         <h2> Introduction</h2>
         <p>
@@ -218,7 +221,6 @@
         </p>
     </div>
 
-    <!-- News Section -->
     <div class="content-section" id="news">
         <h2> News</h2>
         <ul class="news-list">
@@ -227,7 +229,6 @@
         </ul>
     </div>
 
-    <!-- Research Section -->
     <div class="content-section" id="research">
         <h2> Research Overview</h2>
         <p>
@@ -262,7 +263,6 @@
         </div>
     </div>
 
-    <!-- Publications Section -->
     <div class="content-section" id="publications">
         <h2>📝 Selected Publications</h2>
         <div class="pub-item">
@@ -289,6 +289,22 @@
         &copy; 2025 Lishan Li. Hosted on GitHub Pages.
     </div>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.content-section').forEach(section => {
+            observer.observe(section);
+        });
+    });
+</script>
 
 </body>
 </html>
