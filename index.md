@@ -17,6 +17,7 @@
             --bg-color: #f8f9fa;
             --text-color: #212529;
             --header-height: 350px; /* 顶部背景图高度 */
+            --container-width: 1100px; /* 宽屏设定 */
         }
 
         body {
@@ -31,27 +32,48 @@
         a { color: var(--primary-color); text-decoration: none; transition: 0.2s; }
         a:hover { text-decoration: underline; color: #003d82; }
 
-        /* === 顶部导航 === */
+        /* === 顶部导航栏 (修复版) === */
         .navbar {
             position: fixed;
             top: 0;
+            left: 0;
             width: 100%;
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.98); /* 不透明度调高，防止看不清 */
             backdrop-filter: blur(10px);
-            border-bottom: 1px solid #eee;
-            z-index: 1000;
-            padding: 15px 0;
+            border-bottom: 1px solid #ddd;
+            z-index: 9999; /* 确保层级最高，不被图片遮挡 */
+            padding: 12px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
         .nav-content {
-            max-width: 900px;
+            max-width: var(--container-width);
             margin: 0 auto;
             padding: 0 20px;
             display: flex;
-            justify-content: space-between;
+            justify-content: space-between; /* 左右分布 */
             align-items: center;
         }
-        .nav-brand { font-weight: bold; font-size: 1.2rem; color: #333; }
-        .nav-links a { margin-left: 20px; font-size: 0.95rem; color: #555; font-weight: 500; }
+        .nav-brand { 
+            font-weight: 700; 
+            font-size: 1.3rem; 
+            color: #222; 
+            font-family: 'Newsreader', serif;
+        }
+        .nav-links {
+            display: flex;
+            gap: 25px; /* 菜单间距 */
+        }
+        .nav-links a { 
+            font-size: 0.95rem; 
+            color: #555; 
+            font-weight: 600;
+            text-transform: uppercase; /* 大写显得更像导航 */
+            letter-spacing: 0.5px;
+        }
+        .nav-links a:hover {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
 
         /* === Hero Header (大背景图) === */
         .hero-header {
@@ -61,6 +83,7 @@
             background-size: cover;
             background-position: center;
             position: relative;
+            margin-top: 50px; /* 给固定导航栏留出一点位置，防止遮挡背景图 */
         }
         .hero-overlay {
             position: absolute;
@@ -70,7 +93,7 @@
 
         /* === 主容器 === */
         .container {
-            max-width: 900px;
+            max-width: var(--container-width);
             margin: 0 auto;
             padding: 0 20px;
             position: relative; 
@@ -78,40 +101,42 @@
 
         /* === 悬浮头像与个人信息 === */
         .profile-section {
-            margin-top: -100px; /* 往上提，压住背景图 */
+            margin-top: -100px; 
             margin-bottom: 50px;
             position: relative;
             z-index: 10;
             display: flex;
             align-items: flex-end;
-            gap: 30px;
+            gap: 35px; 
         }
         
         .avatar {
-            width: 200px;
-            height: 200px;
+            width: 210px;
+            height: 210px;
             border-radius: 12px; 
             border: 5px solid #fff;
             box-shadow: 0 10px 25px rgba(0,0,0,0.15);
             object-fit: cover;
             background: #fff;
+            flex-shrink: 0;
         }
 
         .profile-info {
             padding-bottom: 5px;
         }
         .profile-name {
-            font-size: 2.6rem;
+            font-size: 2.8rem;
             font-weight: 700;
             margin: 0;
             line-height: 1.1;
-            text-shadow: 2px 2px 4px rgba(255,255,255,0.8); /* 防止背景太黑看不清字 */
+            color: #222;
+            text-shadow: 2px 2px 4px rgba(255,255,255,0.8);
         }
         .profile-title {
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             color: #444;
             margin-top: 12px;
-            margin-bottom: 15px;
+            margin-bottom: 18px;
             line-height: 1.4;
         }
         .social-links {
@@ -119,7 +144,7 @@
         }
         .social-btn {
             display: inline-block;
-            padding: 6px 15px;
+            padding: 6px 16px;
             border: 1px solid #ddd;
             border-radius: 20px;
             font-size: 0.9rem;
@@ -139,6 +164,7 @@
             border-radius: 12px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.04);
             border: 1px solid #f0f0f0;
+            scroll-margin-top: 80px; /* 点击导航跳转时，留出空隙，不被遮挡 */
         }
 
         h2 {
@@ -157,10 +183,14 @@
             color: #333;
         }
 
-        p { margin-bottom: 15px; text-align: justify; color: #444; }
+        p { 
+            margin-bottom: 15px; 
+            text-align: justify; 
+            color: #444; 
+            max-width: 850px; 
+        }
         
-        /* 列表优化 */
-        ul { padding-left: 20px; color: #444; }
+        ul { padding-left: 20px; color: #444; max-width: 850px; }
         li { margin-bottom: 8px; }
         
         /* News 列表 */
@@ -175,14 +205,25 @@
         .pub-links { margin-top: 5px; }
         .pub-links a { font-size: 0.85rem; margin-right: 10px; font-weight: 600;}
 
-        /* 手机适配 */
+        /* === 手机/平板适配 (重要修复) === */
         @media (max-width: 768px) {
+            .nav-content {
+                flex-direction: column; /* 上下排列 */
+                gap: 10px;
+            }
+            .nav-links {
+                display: flex; /* 强制显示！ */
+                gap: 15px;
+                font-size: 0.85rem;
+                flex-wrap: wrap; /* 放不下自动换行 */
+                justify-content: center;
+            }
+            
             .profile-section { flex-direction: column; align-items: center; text-align: center; margin-top: -80px; }
             .avatar { width: 160px; height: 160px; }
-            .nav-links { display: none; } /* 手机端隐藏导航 */
-            .nav-content { justify-content: center; }
             .content-section { padding: 25px; }
-            .hero-header { height: 250px; }
+            .hero-header { height: 250px; margin-top: 80px; /* 手机上导航栏变高了，下移背景图 */ }
+            p, ul { max-width: 100%; }
         }
     </style>
 </head>
@@ -212,7 +253,7 @@
                 <h1 class="profile-name">Lishan Li (李丽珊)</h1>
                 <div class="profile-title">
                     <strong>Research Assistant</strong> @ School of Chinese Language and Literature, BNU<br>
-                    [cite_start]M.A. in Chinese Linguistics [cite: 5] | [cite_start]B.A. in Chinese Lit [cite: 11, 12]
+                    M.A. in Chinese Linguistics | B.A. in Chinese Lit
                 </div>
                 <div class="social-links">
                     <a href="mailto:lilishan0121@gmail.com" class="social-btn">📧 Email</a>
@@ -228,20 +269,20 @@
                 Hello! I am a linguistics researcher passionate about <strong>Phonetics</strong>, <strong>Dialectology</strong>, and <strong>Language Acquisition</strong>.
             </p>
             <p>
-                My research interests lie in the evolution of tones in Chinese dialects, specifically how they merge over time and how they interact with musical melodies. [cite_start]I combine traditional <strong>fieldwork</strong> (recording 180+ children [cite: 61][cite_start]; documenting endangered dialects) with <strong>computational modeling</strong> (Python/R [cite: 90]) to decode the mechanism of sound change.
+                My research interests lie in the evolution of tones in Chinese dialects, specifically how they merge over time and how they interact with musical melodies. I combine traditional <strong>fieldwork</strong> (recording 180+ children; documenting endangered dialects) with <strong>computational modeling</strong> (Python/R) to decode the mechanism of sound change.
             </p>
             <p>
-                [cite_start]I obtained my M.A. from <strong>Beijing Normal University</strong> (Outstanding Graduate [cite: 83][cite_start]) and B.A. from <strong>Shandong University</strong> (GPA: 4.03/5.0, Rank: 6/102 [cite: 13]).
+                I obtained my M.A. from <strong>Beijing Normal University</strong> (Outstanding Graduate) and B.A. from <strong>Shandong University</strong> (GPA: 4.03/5.0, Rank: 6/102).
             </p>
         </div>
 
         <div class="content-section" id="news">
             <h2>🔥 News</h2>
             <ul class="news-list">
-                [cite_start]<li><strong>[Sep 2025]</strong> Started full-time position as Research Assistant at BNU[cite: 37].</li>
-                <li><strong>[Aug 2025]</strong> Presented our work on <em>Cantonese Tone Merging</em> orally at <strong>Interspeech 2025</strong>! [cite_start]🎤 [cite: 28]</li>
-                [cite_start]<li><strong>[Jun 2025]</strong> Graduated from BNU as an <strong>Outstanding Graduate of Beijing</strong>[cite: 83].</li>
-                [cite_start]<li><strong>[2024]</strong> Paper on dialect loss and tone perception published in <strong>JASA</strong> (Vol. 156)[cite: 20, 21].</li>
+                <li><strong>[Sep 2025]</strong> Started full-time position as Research Assistant at BNU.</li>
+                <li><strong>[Aug 2025]</strong> Presented our work on <em>Cantonese Tone Merging</em> orally at <strong>Interspeech 2025</strong>! 🎤</li>
+                <li><strong>[Jun 2025]</strong> Graduated from BNU as an <strong>Outstanding Graduate of Beijing</strong>.</li>
+                <li><strong>[2024]</strong> Paper on dialect loss and tone perception published in <strong>JASA</strong> (Vol. 156).</li>
             </ul>
         </div>
 
@@ -258,7 +299,7 @@
 
             <h3>2. Bilingualism & Perceptual Plasticity</h3>
             <p>
-                A second major line of my work investigates how language experience shapes perceptual sensitivity. I demonstrate that speech perception is not fixed: listeners continually reweight multiple dimensions—such as F0, duration, or voice quality—depending on their linguistic background. [cite_start]I focus especially on bilinguals and bi-dialectal speakers (e.g., Changsha Mandarin) to test how merger patterns influence perceptual categories[cite: 33].
+                A second major line of my work investigates how language experience shapes perceptual sensitivity. I demonstrate that speech perception is not fixed: listeners continually reweight multiple dimensions—such as F0, duration, or voice quality—depending on their linguistic background. I focus especially on bilinguals and bi-dialectal speakers (e.g., Changsha Mandarin) to test how merger patterns influence perceptual categories.
             </p>
 
             <h3>3. Language Acquisition: Typical & Atypical</h3>
@@ -277,24 +318,24 @@
             
             <div class="pub-item">
                 <span class="pub-title">The influence of dialect loss on tone perception: Diminishing voice quality cues in preserved tone contrast</span>
-                <div class="pub-meta">Zhang, Y., <strong>Li, L.</strong>, Lai, W., & Xu, X. (2024). [cite_start]<em>Journal of the Acoustical Society of America (JASA)</em>, 156(6):3707-3722. [cite: 20, 21, 22]</div>
+                <div class="pub-meta">Zhang, Y., <strong>Li, L.</strong>, Lai, W., & Xu, X. (2024). <em>Journal of the Acoustical Society of America (JASA)</em>, 156(6):3707-3722.</div>
                 <div class="pub-links">[<a href="#">Paper Link</a>]</div>
             </div>
 
             <div class="pub-item">
                 <span class="pub-title">Lexical competition in the process of Cantonese tone merging: Diverse Impact Mechanisms Across Different Individuals and Tone Pairs</span>
-                <div class="pub-meta"><strong>Li, L.</strong>, Zhou, Y., & Xu, X. (2025). <em>In Proc. of Interspeech 2025</em>. (<strong>Oral Presentation</strong>) [cite_start][cite: 27, 28]</div>
+                <div class="pub-meta"><strong>Li, L.</strong>, Zhou, Y., & Xu, X. (2025). <em>In Proc. of Interspeech 2025</em>. (<strong>Oral Presentation</strong>)</div>
                 <div class="pub-links">[<a href="#">PDF</a>] [<a href="#">Slides</a>]</div>
             </div>
 
              <div class="pub-item">
                 <span class="pub-title">Level-Tone Merger in Production and Perception: Study in two Chinese Min Dialects</span>
-                <div class="pub-meta">Wu, Y., <strong>Li, L.</strong>, & Xu, X. (2025). <em>In Proc. of International Conference on Asian Language Processing (IALP)</em>. (*Equal Contribution) [cite_start][cite: 29, 30]</div>
+                <div class="pub-meta">Wu, Y., <strong>Li, L.</strong>, & Xu, X. (2025). <em>In Proc. of International Conference on Asian Language Processing (IALP)</em>. (*Equal Contribution)</div>
             </div>
             
             <div class="pub-item">
                 <span class="pub-title">Multiple Patterns of Merging Guangzhou Cantonese Tones in Production and Perception: Study on Youth Groups</span>
-                <div class="pub-meta"><strong>Li, L.</strong> & Xu, X. (2024). <em>In Proc. of ISCSLP 2024</em>. (<strong>Oral Presentation</strong>) [cite_start][cite: 31, 32]</div>
+                <div class="pub-meta"><strong>Li, L.</strong> & Xu, X. (2024). <em>In Proc. of ISCSLP 2024</em>. (<strong>Oral Presentation</strong>)</div>
             </div>
         </div>
 
