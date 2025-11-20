@@ -190,11 +190,12 @@
     <div class="profile-section">
         <img src="./profile.jpg" alt="Lishan Li" class="avatar">
         <div class="profile-info">
-            <h1 class="profile-name">Lishan Li (李丽珊)</h1>
-            <div class="profile-title">
-                <strong>Research Assistant</strong> @ School of Chinese Language and Literature, BNU<br>
-                M.A. in Chinese Linguistics | B.A. in Chinese Lit
-            </div>
+<h1 class="profile-name">Lishan Li [li²¹³ li⁵¹ ʂan⁵⁵] (李丽珊)</h1>
+<div class="profile-title">
+    M.A. in Chinese Linguistics | Beijing Normal University<br>
+    B.A. in Chinese language and Literature | Shandong University
+</div>
+
             <div class="social-links">
                 <a href="mailto:lilishan0121@gmail.com" class="social-btn">📧 Email</a>
                 <a href="./Lishan_Li_CV_2025.pdf" class="social-btn">📄 CV</a>
@@ -205,7 +206,7 @@
 
     <!-- About Section -->
     <div class="content-section" id="about">
-        <h2>👋 Introduction</h2>
+        <h2> Introduction</h2>
         <p>
             Hello! I am a linguistics researcher passionate about <strong>Phonetics</strong>, <strong>Dialectology</strong>, and <strong>Language Acquisition</strong>.
         </p>
@@ -219,18 +220,16 @@
 
     <!-- News Section -->
     <div class="content-section" id="news">
-        <h2>🔥 News</h2>
+        <h2> News</h2>
         <ul class="news-list">
-            <li><strong>[Sep 2025]</strong> Started full-time position as Research Assistant at BNU.</li>
-            <li><strong>[Aug 2025]</strong> Presented our work on <em>Cantonese Tone Merging</em> orally at <strong>Interspeech 2025</strong>! 🎤</li>
-            <li><strong>[Jun 2025]</strong> Graduated from BNU as an <strong>Outstanding Graduate of Beijing</strong>.</li>
+            <li><strong>[Aug 2025]</strong> Presented our work on <em>Cantonese Tone Merging</em> orally at <strong>Interspeech 2025</strong>! </li>
             <li><strong>[2024]</strong> Paper on dialect loss and tone perception published in <strong>JASA</strong> (Vol. 156).</li>
         </ul>
     </div>
 
     <!-- Research Section -->
     <div class="content-section" id="research">
-        <h2>🧪 Research Overview</h2>
+        <h2> Research Overview</h2>
         <p>
             My research program focuses on understanding how sound systems evolve, how listeners adapt to complex acoustic signals, and how these processes unfold across different populations. I integrate experimental phonetics, speech perception, developmental linguistics, and comparative tonology to build a unified account of how tonal categories emerge, change, and are represented in the mind.
         </p>
