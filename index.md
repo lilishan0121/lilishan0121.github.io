@@ -16,11 +16,11 @@
             --bg-color: #f8f9fa;
             --text-color: #212529;
             --header-height: 350px;
-            --container-width: 1400px; /* 建议：1600px有点太散了，1400px是比较舒服的大宽屏极限 */
+            --container-width: 1400px; 
         }
 
         body {
-            /* 修改处：增加了音标字体支持，防止 IPA 乱码 */
+            /* 关键修复：强制使用支持 IPA 音标的系统字体 */
             font-family: 'Roboto', "Arial Unicode MS", "Lucida Sans Unicode", "Segoe UI", sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
@@ -65,7 +65,7 @@
             background-size: cover;
             background-position: center;
             position: relative;
-            margin-top: 60px; /* 稍微加大一点，防止导航栏遮挡 */
+            margin-top: 60px; 
             display: flex;
             align-items: center;
             justify-content: center;
@@ -113,7 +113,7 @@
         .social-btn { display: inline-block; padding: 6px 16px; border: 1px solid #ddd; border-radius: 20px; font-size: 0.9rem; margin-right: 10px; color: #555; background: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.05); margin-bottom: 5px; transition: all 0.2s; }
         .social-btn:hover { background: #f0f0f0; text-decoration: none; color: #0056b3; transform: translateY(-2px); }
 
-        /* Content Sections (这里是你原代码出问题的地方) */
+        /* Content Sections - 已移除所有动画，变为静态显示 */
         .content-section {
             background: #fff;
             padding: 50px;
@@ -122,19 +122,12 @@
             box-shadow: 0 4px 20px rgba(0,0,0,0.04);
             border: 1px solid #f0f0f0;
             scroll-margin-top: 80px;
-            
-            /* 默认透明，需要 JS 来激活 */
-            opacity: 0; 
-            transform: translateY(20px); 
-            transition: all 0.8s ease-out; 
         }
-        /* 只有加上 visible 类才会显示 */
-        .content-section.visible { opacity: 1; transform: translateY(0); }
 
         h2 { border-bottom: 2px solid #f0f0f0; padding-bottom: 15px; margin-top: 0; margin-bottom: 25px; font-size: 1.6rem; color: #111; }
         h3 { font-size: 1.25rem; margin-top: 35px; margin-bottom: 15px; color: #333; }
 
-        p { margin-bottom: 15px; text-align: justify; color: #444; max-width: 900px; /* 正文限宽，防止读起来太累 */ }
+        p { margin-bottom: 15px; text-align: justify; color: #444; max-width: 900px; }
         ul { padding-left: 20px; color: #444; max-width: 900px; }
         li { margin-bottom: 8px; }
         .news-list li::before { content: "•"; color: #0056b3; font-weight: bold; position: absolute; left: 5px; font-size: 1.2em; line-height: 1; }
@@ -289,22 +282,6 @@
         &copy; 2025 Lishan Li. Hosted on GitHub Pages.
     </div>
 </div>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, { threshold: 0.1 });
-
-        document.querySelectorAll('.content-section').forEach(section => {
-            observer.observe(section);
-        });
-    });
-</script>
 
 </body>
 </html>
