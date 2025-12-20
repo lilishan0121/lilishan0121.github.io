@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lishan Li | Phonetics & Phonology</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,600;1,400&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Noto+Serif:ital,wght@0,400;0,700;1,400&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
 
@@ -14,24 +16,30 @@
 
     <style>
         :root {
-            --primary-color: #0056b3; /* 学术蓝 */
-            --bg-color: #f8f9fa;
-            --text-color: #212529;
+            --primary-color: #0056b3; 
+            --bg-color: #fcfcfc; /* 背景稍微改白一点，更干净 */
+            --text-color: #333;
             --header-height: 400px; 
-            --container-width: 85%; /* 宽屏设定 */
+            --container-width: 85%; 
         }
 
         body {
-            /* 字体栈 */
-            font-family: 'Roboto', "Arial Unicode MS", "Lucida Sans Unicode", "Segoe UI", sans-serif;
+            /* 换成了 Inter，非常干净现代 */
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
             margin: 0;
-            line-height: 1.7;
+            line-height: 1.8; /* 行高稍微加大一点，看起来不拥挤 */
             scroll-behavior: smooth;
         }
 
-        h1, h2, h3 { font-family: 'Newsreader', serif; color: #000; }
+        /* 标题换成了 Playfair Display，很有高级感 */
+        h1, h2, h3, h4 { 
+            font-family: 'Playfair Display', serif; 
+            color: #111; 
+            font-weight: 700;
+        }
+
         a { color: var(--primary-color); text-decoration: none; transition: 0.2s; }
         a:hover { text-decoration: underline; color: #003d82; }
 
@@ -41,10 +49,10 @@
             top: 0; left: 0; width: 100%;
             background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(10px);
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid #eee;
             z-index: 9999;
             padding: 15px 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
         }
         .nav-content {
             width: var(--container-width);
@@ -53,9 +61,15 @@
             justify-content: space-between;
             align-items: center;
         }
-        .nav-brand { font-weight: 700; font-size: 1.4rem; color: #222; font-family: 'Newsreader', serif; }
+        .nav-brand { font-weight: 800; font-size: 1.5rem; color: #000; font-family: 'Playfair Display', serif; letter-spacing: -0.5px; }
         .nav-links { display: flex; gap: 30px; }
-        .nav-links a { font-size: 1rem; color: #555; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+        .nav-links a { 
+            font-size: 0.95rem; 
+            color: #555; 
+            font-weight: 600; 
+            text-transform: uppercase; 
+            letter-spacing: 1px; /* 字母间距拉开一点，显得高级 */
+        }
         .nav-links a:hover { color: var(--primary-color); text-decoration: none; }
 
         /* 顶部大图 */
@@ -73,7 +87,7 @@
         }
         .hero-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.6));
+            background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.5));
             z-index: 1;
         }
         .hero-text {
@@ -81,27 +95,17 @@
             z-index: 2;
             padding: 0 20px;
         }
-        /* --- 修改点 1: Slogan 改为黑色字 + 白色描边 --- */
         .hero-text p { 
-            font-size: 2.2rem; /* 稍微加大一点更有气势 */
-            font-weight: 700;  /* 加粗，让黑色更明显 */
+            font-size: 2.5rem; 
+            font-weight: 800;  
             margin: 0; 
-            font-family: 'Newsreader', serif; 
+            font-family: 'Playfair Display', serif; 
             font-style: italic;
-            
-            /* 关键修改：黑色字体 */
             color: #000; 
-            
-            /* 关键修改：四周白色的硬阴影，模拟描边效果 */
+            letter-spacing: -0.5px;
             text-shadow: 
-                2px 2px 0 #fff,
-               -2px -2px 0 #fff,  
-                2px -2px 0 #fff,
-               -2px 2px 0 #fff,
-                2px 0px 0 #fff,
-                0px 2px 0 #fff,
-               -2px 0px 0 #fff,
-                0px -2px 0 #fff;
+                2px 2px 0 #fff, -2px -2px 0 #fff, 2px -2px 0 #fff, -2px 2px 0 #fff,
+                2px 0px 0 #fff, 0px 2px 0 #fff, -2px 0px 0 #fff, 0px -2px 0 #fff;
         }
 
         /* 主容器 */
@@ -123,7 +127,7 @@
         }
         .avatar { 
             width: 230px; height: 230px; 
-            border-radius: 12px; 
+            border-radius: 50%; /* 改成圆形头像？如果不喜欢圆形改成 12px 变回圆角矩形 */
             border: 6px solid #fff; 
             box-shadow: 0 12px 30px rgba(0,0,0,0.15); 
             object-fit: cover; 
@@ -135,31 +139,23 @@
         
         .profile-info { padding-bottom: 5px; }
         .profile-name { 
-            font-size: 3.2rem; 
-            font-weight: 700; 
+            font-size: 3.5rem; 
+            font-weight: 800; 
             margin: 0; 
             line-height: 1.1; 
-            color: #222; 
-            /* 英文名保留原来的柔和白阴影，或者你也可以改成黑字白边，这里暂时没动英文名 */
+            color: #111; 
+            font-family: 'Playfair Display', serif;
+            letter-spacing: -1px;
             text-shadow: 2px 2px 4px rgba(255,255,255,0.9); 
         }
         
-        /* --- 修改点 2: 中文名和音标 改为黑色字 + 白色描边 --- */
         .profile-ipa {
-            font-family: 'Arial Unicode MS', 'Lucida Sans Unicode', sans-serif;
-            font-size: 1.3rem; /* 稍微加大一点点 */
-            margin-top: 5px;
-            font-weight: 600; /* 加粗一点 */
-            
-            /* 关键修改：黑色字体 */
+            font-family: 'Noto Serif', "Charis SIL", "Doulos SIL", serif; /* 专门显示音标的字体 */
+            font-size: 1.3rem; 
+            margin-top: 8px;
+            font-weight: 600; 
             color: #000;
-            
-            /* 关键修改：白色的硬阴影 */
-            text-shadow: 
-                1.5px 1.5px 0 #fff,
-               -1.5px -1.5px 0 #fff,
-                1.5px -1.5px 0 #fff,
-               -1.5px 1.5px 0 #fff;
+            text-shadow: 1.5px 1.5px 0 #fff, -1.5px -1.5px 0 #fff, 1.5px -1.5px 0 #fff, -1.5px 1.5px 0 #fff;
         }
 
         .profile-title { 
@@ -167,7 +163,8 @@
             color: #444; 
             margin-top: 15px; 
             margin-bottom: 20px; 
-            line-height: 1.5; 
+            line-height: 1.6; 
+            font-weight: 400;
         }
         .social-links { margin-top: 10px; }
         .social-btn { 
@@ -175,41 +172,49 @@
             padding: 8px 20px; 
             border: 1px solid #ddd; 
             border-radius: 30px; 
-            font-size: 0.95rem; 
+            font-size: 0.9rem; 
             margin-right: 12px; 
             color: #555; 
             background: #fff; 
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05); 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05); 
             margin-bottom: 5px; 
             transition: all 0.2s; 
+            font-weight: 500;
         }
-        .social-btn:hover { background: #f0f0f0; text-decoration: none; color: #0056b3; transform: translateY(-2px); }
+        .social-btn:hover { background: #f8f9fa; text-decoration: none; color: #0056b3; transform: translateY(-2px); border-color: #ccc;}
 
         /* 内容板块 */
         .content-section {
             background: #fff;
             padding: 60px;
             margin-bottom: 50px;
-            border-radius: 12px;
+            border-radius: 16px; /* 更圆润一点 */
             box-shadow: 0 4px 20px rgba(0,0,0,0.04);
             border: 1px solid #f0f0f0;
             scroll-margin-top: 100px;
         }
 
-        h2 { border-bottom: 2px solid #f0f0f0; padding-bottom: 15px; margin-top: 0; margin-bottom: 30px; font-size: 1.8rem; color: #111; }
-        h3 { font-size: 1.4rem; margin-top: 40px; margin-bottom: 20px; color: #333; }
+        h2 { border-bottom: 2px solid #f0f0f0; padding-bottom: 15px; margin-top: 0; margin-bottom: 30px; font-size: 2rem; color: #111; letter-spacing: -0.5px;}
+        h3 { font-size: 1.5rem; margin-top: 40px; margin-bottom: 20px; color: #333; }
 
-        p { margin-bottom: 15px; text-align: justify; color: #444; max-width: 100%; }
+        p { margin-bottom: 20px; text-align: justify; color: #444; max-width: 100%; font-size: 1.05rem;}
         ul { padding-left: 20px; color: #444; max-width: 100%; }
-        li { margin-bottom: 10px; }
+        li { margin-bottom: 12px; }
         .news-list li::before { content: "•"; color: #0056b3; font-weight: bold; position: absolute; left: 5px; font-size: 1.2em; line-height: 1; }
 
         /* Publications */
-        .pub-item { margin-bottom: 35px; }
-        .pub-title { font-weight: 700; color: #000; display: block; margin-bottom: 8px; font-size: 1.1rem; }
-        .pub-meta { font-size: 1rem; color: #555; font-family: 'Newsreader', serif; }
+        .pub-item { margin-bottom: 40px; }
+        .pub-title { 
+            font-weight: 600; 
+            color: #111; 
+            display: block; 
+            margin-bottom: 6px; 
+            font-size: 1.15rem; 
+            font-family: 'Inter', sans-serif; /* 文章标题用无衬线体更易读 */
+        }
+        .pub-meta { font-size: 1rem; color: #666; font-style: italic; }
         .pub-links { margin-top: 8px; }
-        .pub-links a { font-size: 0.9rem; margin-right: 15px; font-weight: 600; }
+        .pub-links a { font-size: 0.9rem; margin-right: 15px; font-weight: 600; font-family: monospace; text-transform: uppercase;}
 
         /* Map Style */
         #map {
@@ -219,43 +224,44 @@
             border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
             border: 1px solid #eee;
-            z-index: 1; /* 保证不遮挡导航栏 */
+            z-index: 1;
         }
-        .dial-title { font-weight: bold; color: var(--primary-color); font-size: 1rem; }
+        .dial-title { font-weight: bold; color: var(--primary-color); font-size: 1rem; font-family: 'Inter', sans-serif;}
         .dial-loc { color: #666; font-size: 0.85rem; }
 
         /* Research Cards */
         .research-cards { 
             display: flex; 
             justify-content: space-between; 
-            gap: 20px; 
+            gap: 25px; 
             margin-top: 30px; 
         }
         .research-card { 
             flex: 1; 
-            background: #fbfbfb; 
-            padding: 25px; 
+            background: #fff; /* 改成纯白背景，加边框 */
+            padding: 30px; 
             border-radius: 12px; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03); 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02); 
             transition: transform 0.3s, box-shadow 0.3s; 
             border: 1px solid #eee;
             min-width: 0; 
         }
         .research-card:hover { 
             transform: translateY(-5px); 
-            box-shadow: 0 12px 30px rgba(0,0,0,0.1); 
+            box-shadow: 0 15px 30px rgba(0,0,0,0.08); 
             border-color: var(--primary-color); 
         }
         .research-card h4 { 
             margin-top: 0; 
             color: var(--primary-color); 
-            font-size: 1.2rem; 
+            font-size: 1.3rem; 
             margin-bottom: 15px; 
             height: 50px; 
             display: flex;
             align-items: center;
+            font-family: 'Playfair Display', serif;
         }
-        .research-card p { font-size: 0.95rem; line-height: 1.6; }
+        .research-card p { font-size: 0.95rem; line-height: 1.7; margin-bottom: 0; color: #555;}
 
         /* Footer */
         .footer { text-align: center; color: #999; font-size: 0.9rem; margin-bottom: 60px; }
@@ -267,9 +273,10 @@
             .nav-links { gap: 15px; font-size: 0.85rem; flex-wrap: wrap; justify-content: center; }
             .profile-section { flex-direction: column; align-items: center; text-align: center; margin-top: -80px; gap: 20px;}
             .avatar { width: 160px; height: 160px; }
-            .content-section { padding: 25px; }
+            .content-section { padding: 30px 25px; }
             .hero-header { height: 280px; margin-top: 80px; }
             .profile-name { font-size: 2.2rem; }
+            .hero-text p { font-size: 1.8rem; }
             .research-cards { flex-direction: column; }
             .research-card h4 { height: auto; } 
             #map { height: 300px; } 
@@ -342,9 +349,10 @@
     <div class="content-section" id="research">
         <h2> Research Overview</h2>
         <p>
-        
+            My research program focuses on understanding how sound systems evolve, how listeners adapt to complex acoustic signals, and how these processes unfold across different populations. I integrate experimental phonetics, speech perception, developmental linguistics, and comparative tonology to build a unified account of how tonal categories emerge, change, and are represented in the mind.
+        </p>
 
-        <h3 style="margin-top: 30px; margin-bottom: 10px; font-size: 1.2rem;">🗺️ Data Sources & Fieldwork</h3>
+        <h3 style="margin-top: 30px; margin-bottom: 10px; font-size: 1.2rem; font-family: 'Inter', sans-serif; font-weight: 600;">🗺️ Data Sources & Fieldwork</h3>
         <div id="map"></div>
         <p style="font-size: 0.9rem; color: #666; text-align: center; margin-top: -10px; margin-bottom: 30px;">
             <em>Mapping my linguistic fieldwork across China and Southeast Asia.</em>
