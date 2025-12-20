@@ -7,6 +7,8 @@
     
     <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,600;1,400&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
@@ -80,7 +82,6 @@
             color: #fff;
             padding: 0 20px;
         }
-        /* 这里删掉了大标题样式，因为名字已经删了 */
         .hero-text p { font-size: 1.8rem; font-weight: 400; text-shadow: 1px 1px 6px rgba(0,0,0,0.6); margin: 0; font-family: 'Newsreader', serif; font-style: italic;}
 
         /* 主容器 */
@@ -122,12 +123,11 @@
             text-shadow: 2px 2px 4px rgba(255,255,255,0.9); 
         }
         
-        /* 新增：IPA 音标的独立样式 */
         .profile-ipa {
             font-family: 'Arial Unicode MS', 'Lucida Sans Unicode', sans-serif;
             font-size: 1.2rem;
             color: #555;
-            margin-top: 5px; /* 与名字的间距 */
+            margin-top: 5px;
             font-weight: 400;
         }
 
@@ -180,6 +180,19 @@
         .pub-links { margin-top: 8px; }
         .pub-links a { font-size: 0.9rem; margin-right: 15px; font-weight: 600; }
 
+        /* Map Style - 新增地图样式 */
+        #map {
+            height: 400px;
+            width: 100%;
+            margin: 30px 0;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border: 1px solid #eee;
+            z-index: 1; /* 保证不遮挡导航栏 */
+        }
+        .dial-title { font-weight: bold; color: var(--primary-color); font-size: 1rem; }
+        .dial-loc { color: #666; font-size: 0.85rem; }
+
         /* Research Cards */
         .research-cards { 
             display: flex; 
@@ -228,6 +241,7 @@
             .profile-name { font-size: 2.2rem; }
             .research-cards { flex-direction: column; }
             .research-card h4 { height: auto; } 
+            #map { height: 300px; } /* 手机端地图稍微矮一点 */
         }
     </style>
 </head>
@@ -300,6 +314,12 @@
             My research program focuses on understanding how sound systems evolve, how listeners adapt to complex acoustic signals, and how these processes unfold across different populations. I integrate experimental phonetics, speech perception, developmental linguistics, and comparative tonology to build a unified account of how tonal categories emerge, change, and are represented in the mind.
         </p>
 
+        <h3 style="margin-top: 30px; margin-bottom: 10px; font-size: 1.2rem;">🗺️ Fieldwork & Languages Surveyed</h3>
+        <div id="map"></div>
+        <p style="font-size: 0.9rem; color: #666; text-align: center; margin-top: -10px; margin-bottom: 30px;">
+            <em>Mapping my linguistic fieldwork across China and Southeast Asia.</em>
+        </p>
+
         <div class="research-cards">
             <div class="research-card">
                 <h4>1. Mechanisms of Sound Change</h4>
@@ -331,38 +351,71 @@
     <div class="content-section" id="publications">
         <h2>Selected Publications</h2>
         
-<div class="pub-list">
+    <div class="pub-list">
     
-    <div class="pub-item">
-        <span class="pub-title">The influence of dialect loss on tone perception: Diminishing voice quality cues in preserved tone contrast</span>
-        <div class="pub-meta">Zhang, Y., <strong>Li, L.</strong>, Lai, W., & Xu, X. (2024). <em>Journal of the Acoustical Society of America (JASA)</em>, 156(6):3707-3722.</div>
-        <div class="pub-links">
-            [<a href="https://doi.org/10.1121/10.0034444" target="_blank">Paper</a>]
+        <div class="pub-item">
+            <span class="pub-title">The influence of dialect loss on tone perception: Diminishing voice quality cues in preserved tone contrast</span>
+            <div class="pub-meta">Zhang, Y., <strong>Li, L.</strong>, Lai, W., & Xu, X. (2024). <em>Journal of the Acoustical Society of America (JASA)</em>, 156(6):3707-3722.</div>
+            <div class="pub-links">
+                [<a href="https://doi.org/10.1121/10.0034444" target="_blank">Paper</a>]
+            </div>
         </div>
-    </div>
 
-    <div class="pub-item">
-        <span class="pub-title">Lexical competition in the process of Cantonese tone merging: Diverse Impact Mechanisms Across Different Individuals and Tone Pairs</span>
-        <div class="pub-meta"><strong>Li, L.</strong>, Zhou, Y., & Xu, X. (2025). <em>In Proc. of Interspeech 2025</em>. (<strong>Oral Presentation</strong>)</div>
-        <div class="pub-links">
-            [<a href="https://www.isca-archive.org/interspeech_2025/li25w_interspeech.html" target="_blank">PDF</a>] 
+        <div class="pub-item">
+            <span class="pub-title">Lexical competition in the process of Cantonese tone merging: Diverse Impact Mechanisms Across Different Individuals and Tone Pairs</span>
+            <div class="pub-meta"><strong>Li, L.</strong>, Zhou, Y., & Xu, X. (2025). <em>In Proc. of Interspeech 2025</em>. (<strong>Oral Presentation</strong>)</div>
+            <div class="pub-links">
+                [<a href="https://www.isca-archive.org/interspeech_2025/li25w_interspeech.html" target="_blank">PDF</a>] 
+            </div>
         </div>
-    </div>
-    
-    <div class="pub-item">
-        <span class="pub-title">Multiple Patterns of Merging Guangzhou Cantonese Tones in Production and Perception: Study on Youth Groups</span>
-        <div class="pub-meta"><strong>Li, L.</strong> & Xu, X. (2024). <em>In Proc. of ISCSLP 2024</em>. (<strong>Oral Presentation</strong>)</div>
-        <div class="pub-links">
-            [<a href="https://ieeexplore.ieee.org/abstract/document/10800304" target="_blank">Paper</a>] 
+        
+        <div class="pub-item">
+            <span class="pub-title">Multiple Patterns of Merging Guangzhou Cantonese Tones in Production and Perception: Study on Youth Groups</span>
+            <div class="pub-meta"><strong>Li, L.</strong> & Xu, X. (2024). <em>In Proc. of ISCSLP 2024</em>. (<strong>Oral Presentation</strong>)</div>
+            <div class="pub-links">
+                [<a href="https://ieeexplore.ieee.org/abstract/document/10800304" target="_blank">Paper</a>] 
+            </div>
         </div>
-    </div>
 
-</div>
+    </div>
 
     <div class="footer">
         &copy; 2025 Lishan Li. Hosted on GitHub Pages.
     </div>
 </div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script>
+    // 初始化地图
+    var map = L.map('map').setView([24.0, 110.0], 5);
+
+    // 添加图层
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; OpenStreetMap'
+    }).addTo(map);
+
+    // 数据点
+    const locations = [
+        { title: "广东广州粤语", loc: "Guangzhou, China", lat: 23.1291, lng: 113.2644, desc: "Cantonese (Guangzhou)" },
+        { title: "广东罗定粤语", loc: "Luoding, China", lat: 22.7697, lng: 111.5697, desc: "Cantonese (Luoding)" },
+        { title: "山东五莲冀鲁官话", loc: "Wulian, China", lat: 35.7506, lng: 119.2076, desc: "Ji-Lu Mandarin" },
+        { title: "秦皇岛昌黎胶辽官话", loc: "Changli, China", lat: 39.7047, lng: 119.1660, desc: "Jiao-Liao Mandarin" },
+        { title: "长沙方言", loc: "Changsha, China", lat: 28.2282, lng: 112.9388, desc: "Xiang Dialect" },
+        { title: "柬埔寨金边方言", loc: "Phnom Penh, Cambodia", lat: 11.5564, lng: 104.9282, desc: "Khmer" },
+        { title: "泰语素攀方言", loc: "Suphan Buri, Thailand", lat: 14.4745, lng: 100.1177, desc: "Thai Dialect" }
+    ];
+
+    // 循环添加标记
+    locations.forEach(function(item) {
+        var marker = L.marker([item.lat, item.lng]).addTo(map);
+        marker.bindPopup(`
+            <div class="dial-title">${item.title}</div>
+            <div class="dial-loc">📍 ${item.loc}</div>
+            <div style="font-size:0.9em; margin-top:3px;">${item.desc}</div>
+        `);
+    });
+</script>
 
 </body>
 </html>
