@@ -79,10 +79,30 @@
         .hero-text {
             position: relative;
             z-index: 2;
-            color: #fff;
             padding: 0 20px;
         }
-        .hero-text p { font-size: 1.8rem; font-weight: 400; text-shadow: 1px 1px 6px rgba(0,0,0,0.6); margin: 0; font-family: 'Newsreader', serif; font-style: italic;}
+        /* --- 修改点 1: Slogan 改为黑色字 + 白色描边 --- */
+        .hero-text p { 
+            font-size: 2.2rem; /* 稍微加大一点更有气势 */
+            font-weight: 700;  /* 加粗，让黑色更明显 */
+            margin: 0; 
+            font-family: 'Newsreader', serif; 
+            font-style: italic;
+            
+            /* 关键修改：黑色字体 */
+            color: #000; 
+            
+            /* 关键修改：四周白色的硬阴影，模拟描边效果 */
+            text-shadow: 
+                2px 2px 0 #fff,
+               -2px -2px 0 #fff,  
+                2px -2px 0 #fff,
+               -2px 2px 0 #fff,
+                2px 0px 0 #fff,
+                0px 2px 0 #fff,
+               -2px 0px 0 #fff,
+                0px -2px 0 #fff;
+        }
 
         /* 主容器 */
         .container { 
@@ -120,15 +140,26 @@
             margin: 0; 
             line-height: 1.1; 
             color: #222; 
+            /* 英文名保留原来的柔和白阴影，或者你也可以改成黑字白边，这里暂时没动英文名 */
             text-shadow: 2px 2px 4px rgba(255,255,255,0.9); 
         }
         
+        /* --- 修改点 2: 中文名和音标 改为黑色字 + 白色描边 --- */
         .profile-ipa {
             font-family: 'Arial Unicode MS', 'Lucida Sans Unicode', sans-serif;
-            font-size: 1.2rem;
-            color: #555;
+            font-size: 1.3rem; /* 稍微加大一点点 */
             margin-top: 5px;
-            font-weight: 400;
+            font-weight: 600; /* 加粗一点 */
+            
+            /* 关键修改：黑色字体 */
+            color: #000;
+            
+            /* 关键修改：白色的硬阴影 */
+            text-shadow: 
+                1.5px 1.5px 0 #fff,
+               -1.5px -1.5px 0 #fff,
+                1.5px -1.5px 0 #fff,
+               -1.5px 1.5px 0 #fff;
         }
 
         .profile-title { 
@@ -180,7 +211,7 @@
         .pub-links { margin-top: 8px; }
         .pub-links a { font-size: 0.9rem; margin-right: 15px; font-weight: 600; }
 
-        /* Map Style - 新增地图样式 */
+        /* Map Style */
         #map {
             height: 400px;
             width: 100%;
@@ -241,7 +272,7 @@
             .profile-name { font-size: 2.2rem; }
             .research-cards { flex-direction: column; }
             .research-card h4 { height: auto; } 
-            #map { height: 300px; } /* 手机端地图稍微矮一点 */
+            #map { height: 300px; } 
         }
     </style>
 </head>
