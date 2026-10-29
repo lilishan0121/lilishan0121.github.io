@@ -1,59 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Lishan Li | Phonetics & Phonology</title>
-    
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Noto+Serif:ital,wght@0,400;0,700;1,400&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
 
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Serif:wght@400;700&family=Playfair+Display:wght@700;800&display=swap"
+          rel="stylesheet">
+
+    <!-- Leaflet Map -->
+    <link rel="stylesheet"
+          href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 
     <style>
+
+        /* ================= GENERAL ================= */
+
         :root {
-            --primary-color: #0056b3; 
-            --bg-color: #fcfcfc; /* 背景稍微改白一点，更干净 */
+            --primary-color: #0056b3;
+            --bg-color: #fcfcfc;
             --text-color: #333;
-            --header-height: 400px; 
-            --container-width: 85%; 
+            --header-height: 400px;
+            --container-width: 85%;
         }
 
-        body {
-            /* 换成了 Inter，非常干净现代 */
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            margin: 0;
-            line-height: 1.8; /* 行高稍微加大一点，看起来不拥挤 */
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
             scroll-behavior: smooth;
         }
 
-        /* 标题换成了 Playfair Display，很有高级感 */
-        h1, h2, h3, h4 { 
-            font-family: 'Playfair Display', serif; 
-            color: #111; 
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            line-height: 1.8;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            color: #111;
             font-weight: 700;
         }
 
-        a { color: var(--primary-color); text-decoration: none; transition: 0.2s; }
-        a:hover { text-decoration: underline; color: #003d82; }
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: 0.2s;
+        }
 
-        /* 导航栏 */
+        a:hover {
+            text-decoration: underline;
+            color: #003d82;
+        }
+
+        p {
+            margin-bottom: 20px;
+            text-align: justify;
+            color: #444;
+            font-size: 1.05rem;
+        }
+
+
+        /* ================= NAVIGATION ================= */
+
         .navbar {
             position: fixed;
-            top: 0; left: 0; width: 100%;
-            background: rgba(255, 255, 255, 0.98);
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255,255,255,0.98);
             backdrop-filter: blur(10px);
             border-bottom: 1px solid #eee;
             z-index: 9999;
             padding: 15px 0;
             box-shadow: 0 2px 10px rgba(0,0,0,0.03);
         }
+
         .nav-content {
             width: var(--container-width);
             margin: 0 auto;
@@ -61,162 +93,297 @@
             justify-content: space-between;
             align-items: center;
         }
-        .nav-brand { font-weight: 800; font-size: 1.5rem; color: #000; font-family: 'Playfair Display', serif; letter-spacing: -0.5px; }
-        .nav-links { display: flex; gap: 30px; }
-        .nav-links a { 
-            font-size: 0.95rem; 
-            color: #555; 
-            font-weight: 600; 
-            text-transform: uppercase; 
-            letter-spacing: 1px; /* 字母间距拉开一点，显得高级 */
-        }
-        .nav-links a:hover { color: var(--primary-color); text-decoration: none; }
 
-        /* 顶部大图 */
+        .nav-brand {
+            font-family: 'Playfair Display', serif;
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: #000;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            font-size: 0.9rem;
+            color: #555;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+
+        /* ================= HERO ================= */
+
         .hero-header {
             height: var(--header-height);
             background-image: url('./bg.jpg');
             background-size: cover;
             background-position: center;
             position: relative;
-            margin-top: 65px; 
+            margin-top: 65px;
+
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
         }
+
         .hero-overlay {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.5));
-            z-index: 1;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+
+            background: linear-gradient(
+                to bottom,
+                rgba(0,0,0,0.1),
+                rgba(0,0,0,0.5)
+            );
         }
+
         .hero-text {
             position: relative;
             z-index: 2;
             padding: 0 20px;
         }
-        .hero-text p { 
-            font-size: 2.5rem; 
-            font-weight: 800;  
-            margin: 0; 
-            font-family: 'Playfair Display', serif; 
+
+        .hero-text p {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 800;
             font-style: italic;
-            color: #000; 
-            letter-spacing: -0.5px;
-            text-shadow: 
-                2px 2px 0 #fff, -2px -2px 0 #fff, 2px -2px 0 #fff, -2px 2px 0 #fff,
-                2px 0px 0 #fff, 0px 2px 0 #fff, -2px 0px 0 #fff, 0px -2px 0 #fff;
+            color: #000;
+            margin: 0;
+
+            text-shadow:
+                2px 2px 0 #fff,
+                -2px -2px 0 #fff,
+                2px -2px 0 #fff,
+                -2px 2px 0 #fff,
+                2px 0 0 #fff,
+                0 2px 0 #fff,
+                -2px 0 0 #fff,
+                0 -2px 0 #fff;
         }
 
-        /* 主容器 */
-        .container { 
-            width: var(--container-width); 
-            margin: 0 auto; 
-            position: relative; 
+
+        /* ================= CONTAINER ================= */
+
+        .container {
+            width: var(--container-width);
+            margin: 0 auto;
+            position: relative;
         }
 
-        /* 个人信息区 */
+
+        /* ================= PROFILE ================= */
+
         .profile-section {
             margin-top: -120px;
             margin-bottom: 60px;
             position: relative;
             z-index: 10;
+
             display: flex;
             align-items: flex-end;
             gap: 40px;
         }
-        .avatar { 
-            width: 230px; height: 230px; 
-            border-radius: 50%; /* 改成圆形头像？如果不喜欢圆形改成 12px 变回圆角矩形 */
-            border: 6px solid #fff; 
-            box-shadow: 0 12px 30px rgba(0,0,0,0.15); 
-            object-fit: cover; 
-            background: #fff; 
-            flex-shrink: 0; 
-            transition: transform 0.3s; 
+
+        .avatar {
+            width: 230px;
+            height: 230px;
+            border-radius: 50%;
+            border: 6px solid #fff;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+            object-fit: cover;
+            background: #fff;
+            flex-shrink: 0;
+            transition: transform 0.3s;
         }
-        .avatar:hover { transform: scale(1.05); }
-        
-        .profile-info { padding-bottom: 5px; }
-        .profile-name { 
-            font-size: 3.5rem; 
-            font-weight: 800; 
-            margin: 0; 
-            line-height: 1.1; 
-            color: #111; 
-            font-family: 'Playfair Display', serif;
+
+        .avatar:hover {
+            transform: scale(1.05);
+        }
+
+        .profile-info {
+            padding-bottom: 5px;
+        }
+
+        .profile-name {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin: 0;
+            line-height: 1.1;
+            color: #111;
             letter-spacing: -1px;
-            text-shadow: 2px 2px 4px rgba(255,255,255,0.9); 
+            text-shadow: 2px 2px 4px rgba(255,255,255,0.9);
         }
-        
+
         .profile-ipa {
-            font-family: 'Noto Serif', "Charis SIL", "Doulos SIL", serif; /* 专门显示音标的字体 */
-            font-size: 1.3rem; 
+            font-family: 'Noto Serif', serif;
+            font-size: 1.3rem;
             margin-top: 8px;
-            font-weight: 600; 
+            font-weight: 600;
             color: #000;
-            text-shadow: 1.5px 1.5px 0 #fff, -1.5px -1.5px 0 #fff, 1.5px -1.5px 0 #fff, -1.5px 1.5px 0 #fff;
+
+            text-shadow:
+                1.5px 1.5px 0 #fff,
+                -1.5px -1.5px 0 #fff,
+                1.5px -1.5px 0 #fff,
+                -1.5px 1.5px 0 #fff;
         }
 
-        .profile-title { 
-            font-size: 1.1rem; 
-            color: #444; 
-            margin-top: 15px; 
-            margin-bottom: 20px; 
-            line-height: 1.6; 
-            font-weight: 400;
+        .profile-title {
+            font-size: 1.1rem;
+            color: #444;
+            margin-top: 15px;
+            margin-bottom: 20px;
+            line-height: 1.6;
         }
-        .social-links { margin-top: 10px; }
-        .social-btn { 
-            display: inline-block; 
-            padding: 8px 20px; 
-            border: 1px solid #ddd; 
-            border-radius: 30px; 
-            font-size: 0.9rem; 
-            margin-right: 12px; 
-            color: #555; 
-            background: #fff; 
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05); 
-            margin-bottom: 5px; 
-            transition: all 0.2s; 
+
+        .social-links {
+            margin-top: 10px;
+        }
+
+        .social-btn {
+            display: inline-block;
+            padding: 8px 20px;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            margin-right: 12px;
+            margin-bottom: 8px;
+            color: #555;
+            background: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
             font-weight: 500;
+            transition: all 0.2s;
         }
-        .social-btn:hover { background: #f8f9fa; text-decoration: none; color: #0056b3; transform: translateY(-2px); border-color: #ccc;}
 
-        /* 内容板块 */
+        .social-btn:hover {
+            background: #f8f9fa;
+            text-decoration: none;
+            color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+
+        /* ================= CONTENT ================= */
+
         .content-section {
             background: #fff;
             padding: 60px;
             margin-bottom: 50px;
-            border-radius: 16px; /* 更圆润一点 */
+            border-radius: 16px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.04);
             border: 1px solid #f0f0f0;
             scroll-margin-top: 100px;
         }
 
-        h2 { border-bottom: 2px solid #f0f0f0; padding-bottom: 15px; margin-top: 0; margin-bottom: 30px; font-size: 2rem; color: #111; letter-spacing: -0.5px;}
-        h3 { font-size: 1.5rem; margin-top: 40px; margin-bottom: 20px; color: #333; }
-
-        p { margin-bottom: 20px; text-align: justify; color: #444; max-width: 100%; font-size: 1.05rem;}
-        ul { padding-left: 20px; color: #444; max-width: 100%; }
-        li { margin-bottom: 12px; }
-        .news-list li::before { content: "•"; color: #0056b3; font-weight: bold; position: absolute; left: 5px; font-size: 1.2em; line-height: 1; }
-
-        /* Publications */
-        .pub-item { margin-bottom: 40px; }
-        .pub-title { 
-            font-weight: 600; 
-            color: #111; 
-            display: block; 
-            margin-bottom: 6px; 
-            font-size: 1.15rem; 
-            font-family: 'Inter', sans-serif; /* 文章标题用无衬线体更易读 */
+        h2 {
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 15px;
+            margin-top: 0;
+            margin-bottom: 30px;
+            font-size: 2rem;
         }
-        .pub-meta { font-size: 1rem; color: #666; font-style: italic; }
-        .pub-links { margin-top: 8px; }
-        .pub-links a { font-size: 0.9rem; margin-right: 15px; font-weight: 600; font-family: monospace; text-transform: uppercase;}
 
-        /* Map Style */
+        h3 {
+            font-size: 1.5rem;
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+
+
+        /* ================= RESEARCH CARDS ================= */
+
+        .research-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .research-card {
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+            border: 1px solid #eee;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .research-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+            border-color: var(--primary-color);
+        }
+
+        .research-card h4 {
+            margin-top: 0;
+            color: var(--primary-color);
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+
+        .research-card p {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 0;
+            color: #555;
+        }
+
+
+        /* ================= PUBLICATIONS ================= */
+
+        .pub-item {
+            margin-bottom: 35px;
+        }
+
+        .pub-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .pub-title {
+            font-weight: 600;
+            color: #111;
+            display: block;
+            margin-bottom: 6px;
+            font-size: 1.15rem;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .pub-meta {
+            font-size: 1rem;
+            color: #666;
+            font-style: italic;
+            line-height: 1.8;
+        }
+
+        .pub-links {
+            margin-top: 8px;
+        }
+
+        .pub-links a {
+            font-size: 0.9rem;
+            margin-right: 15px;
+            font-weight: 600;
+            font-family: monospace;
+            text-transform: uppercase;
+        }
+
+
+        /* ================= MAP ================= */
+
         #map {
             height: 400px;
             width: 100%;
@@ -226,234 +393,787 @@
             border: 1px solid #eee;
             z-index: 1;
         }
-        .dial-title { font-weight: bold; color: var(--primary-color); font-size: 1rem; font-family: 'Inter', sans-serif;}
-        .dial-loc { color: #666; font-size: 0.85rem; }
 
-        /* Research Cards */
-        .research-cards { 
-            display: flex; 
-            justify-content: space-between; 
-            gap: 25px; 
-            margin-top: 30px; 
+        .dial-title {
+            font-weight: bold;
+            color: var(--primary-color);
+            font-size: 1rem;
         }
-        .research-card { 
-            flex: 1; 
-            background: #fff; /* 改成纯白背景，加边框 */
-            padding: 30px; 
-            border-radius: 12px; 
-            box-shadow: 0 2px 10px rgba(0,0,0,0.02); 
-            transition: transform 0.3s, box-shadow 0.3s; 
-            border: 1px solid #eee;
-            min-width: 0; 
-        }
-        .research-card:hover { 
-            transform: translateY(-5px); 
-            box-shadow: 0 15px 30px rgba(0,0,0,0.08); 
-            border-color: var(--primary-color); 
-        }
-        .research-card h4 { 
-            margin-top: 0; 
-            color: var(--primary-color); 
-            font-size: 1.3rem; 
-            margin-bottom: 15px; 
-            height: 50px; 
-            display: flex;
-            align-items: center;
-            font-family: 'Playfair Display', serif;
-        }
-        .research-card p { font-size: 0.95rem; line-height: 1.7; margin-bottom: 0; color: #555;}
 
-        /* Footer */
-        .footer { text-align: center; color: #999; font-size: 0.9rem; margin-bottom: 60px; }
+        .dial-loc {
+            color: #666;
+            font-size: 0.85rem;
+        }
 
-        /* 手机端适配 */
+
+        /* ================= FOOTER ================= */
+
+        .footer {
+            text-align: center;
+            color: #999;
+            font-size: 0.9rem;
+            margin-bottom: 60px;
+        }
+
+
+        /* ================= MOBILE ================= */
+
         @media (max-width: 768px) {
-            :root { --container-width: 92%; }
-            .nav-content { flex-direction: column; gap: 10px; width: 100%; }
-            .nav-links { gap: 15px; font-size: 0.85rem; flex-wrap: wrap; justify-content: center; }
-            .profile-section { flex-direction: column; align-items: center; text-align: center; margin-top: -80px; gap: 20px;}
-            .avatar { width: 160px; height: 160px; }
-            .content-section { padding: 30px 25px; }
-            .hero-header { height: 280px; margin-top: 80px; }
-            .profile-name { font-size: 2.2rem; }
-            .hero-text p { font-size: 1.8rem; }
-            .research-cards { flex-direction: column; }
-            .research-card h4 { height: auto; } 
-            #map { height: 300px; } 
+
+            :root {
+                --container-width: 92%;
+            }
+
+            .nav-content {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .nav-links {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .nav-links a {
+                font-size: 0.75rem;
+            }
+
+            .profile-section {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                margin-top: -80px;
+                gap: 20px;
+            }
+
+            .avatar {
+                width: 160px;
+                height: 160px;
+            }
+
+            .profile-name {
+                font-size: 2.2rem;
+            }
+
+            .content-section {
+                padding: 30px 25px;
+            }
+
+            .hero-header {
+                height: 280px;
+                margin-top: 100px;
+            }
+
+            .hero-text p {
+                font-size: 1.8rem;
+            }
+
+            .research-cards {
+                grid-template-columns: 1fr;
+            }
+
+            #map {
+                height: 300px;
+            }
         }
+
     </style>
+
 </head>
+
+
 <body>
 
+
+<!-- ================= NAVIGATION ================= -->
+
 <nav class="navbar">
+
     <div class="nav-content">
-        <div class="nav-brand">Lishan Li</div>
+
+        <div class="nav-brand">
+            Lishan Li
+        </div>
+
         <div class="nav-links">
             <a href="#about">About</a>
-            <a href="#news">News</a>
             <a href="#research">Research</a>
             <a href="#publications">Publications</a>
+            <a href="#presentations">Presentations</a>
         </div>
+
     </div>
+
 </nav>
 
+
+<!-- ================= HERO ================= -->
+
 <div class="hero-header">
+
     <div class="hero-overlay"></div>
+
     <div class="hero-text">
         <p>"Decoding the melody of speech"</p>
     </div>
+
 </div>
+
 
 <div class="container">
-    <div class="profile-section">
-        <img src="./profile.jpg" alt="Lishan Li" class="avatar">
-        
-        <div class="profile-info">
-            <h1 class="profile-name">Lishan Li</h1>
-            <div class="profile-ipa">李丽珊[li²¹³ li⁵¹ʂan⁵⁵]</div>
-            
-            <div class="profile-title">
-                School of Chinese Language and Literature, Beijing Normal University<br>
-                M.A. in Chinese Linguistics | B.A. in Chinese Language and Literature
-            </div>
 
-            <div class="social-links">
-                <a href="mailto:lilishan0121@gmail.com" class="social-btn">📧 Email</a>
-                <a href="./Lishan_Li_CV_2025.pdf" class="social-btn">📄 CV</a>
-                <a href="https://www.researchgate.net/profile/Lishan-Li-3?ev=hdr_xprf" class="social-btn" target="_blank">🔬 ResearchGate</a>
-            </div>
-        </div>
-    </div>
 
-    <div class="content-section" id="about">
-        <h2> Introduction</h2>
-        <p>
-            Hello! I am a linguistics researcher passionate about <strong>Phonetics</strong>, <strong>Dialectology</strong>, and <strong>Language Acquisition</strong>.
-        </p>
-        <p>
-          I am a linguistics researcher sitting at the interface of Phonetics and Phonology. My work explores the cognitive resilience of sound systems, focusing specifically on how listeners adapt when phonological contrasts blur and signals degrade. I examine the interplay between individual variability, cue-weighting, and language evolution across diverse populations, including bilingual and bidialectal speakers.
-        </p>
-        <p>
-            I obtained my M.A. from <strong>Beijing Normal University</strong> and B.A. from <strong>Shandong University</strong>.
-        </p>
-    </div>
+<!-- ================= PROFILE ================= -->
 
-    <div class="content-section" id="news">
-        <h2> News</h2>
-        <ul class="news-list">
-            <li><strong>[Aug 2025]</strong> Presented our work on <em>Cantonese Tone Merging</em> orally at <strong>Interspeech 2025</strong>! 🎤</li>
-            <li><strong>[Dec 2024]</strong> Paper on dialect loss and tone perception published in <strong>JASA</strong> (Vol. 156).</li>
-        </ul>
-    </div>
+<div class="profile-section">
 
-    <div class="content-section" id="research">
-        <h2> Research Overview</h2>
-        <p>
-        
-        </p>
+    <img src="./profile.jpg"
+         alt="Lishan Li"
+         class="avatar">
 
-        <h3 style="margin-top: 30px; margin-bottom: 10px; font-size: 1.2rem; font-family: 'Inter', sans-serif; font-weight: 600;">🗺️ Data Sources & Fieldwork</h3>
-        <div id="map"></div>
-        <p style="font-size: 0.9rem; color: #666; text-align: center; margin-top: -10px; margin-bottom: 30px;">
-            <em>Mapping my linguistic fieldwork across China and Southeast Asia.</em>
-        </p>
+    <div class="profile-info">
 
-        <div class="research-cards">
-            <div class="research-card">
-                <h4>1. Mechanisms of Sound Change</h4>
-                <p>
-                    I investigate how phonetic variation is transformed into phonological restructuring. A central component concerns <strong>Cantonese tone evolution</strong> and the interaction between morphological tone alternation and ongoing tonal mergers.
-                </p>
-            </div>
-            <div class="research-card">
-                <h4>2. Bilingualism & Plasticity</h4>
-                <p>
-                    I investigate how language experience shapes perceptual sensitivity. I demonstrate that speech perception is not fixed: listeners continually reweight multiple dimensions—such as F0, duration, or voice quality—depending on their linguistic background.
-                </p>
-            </div>
-            <div class="research-card">
-                <h4>3. Language Acquisition</h4>
-                <p>
-                    I extend my expertise in prosody to developmental populations. My current project focuses on children with <strong>Autism Spectrum Disorder (ASD)</strong>, examining suprasegmental features to identify reliable acoustic markers.
-                </p>
-            </div>
-            <div class="research-card">
-                <h4>4. Multidimensional Cue Dynamics</h4>
-                <p>
-                    Across all areas of my research lies a unifying interest: how listeners integrate multiple acoustic cues (pitch, duration, spectral tilt) and how these strategies shift in different environments, such as tonal mergers or noisy signals.
-                </p>
-            </div>
-        </div>
-    </div>
+        <h1 class="profile-name">
+            Lishan Li
+        </h1>
 
-    <div class="content-section" id="publications">
-        <h2>Selected Publications</h2>
-        
-    <div class="pub-list">
-    
-        <div class="pub-item">
-            <span class="pub-title">The influence of dialect loss on tone perception: Diminishing voice quality cues in preserved tone contrast</span>
-            <div class="pub-meta">Zhang, Y., <strong>Li, L.</strong>, Lai, W., & Xu, X. (2024). <em>Journal of the Acoustical Society of America (JASA)</em>, 156(6):3707-3722.</div>
-            <div class="pub-links">
-                [<a href="https://doi.org/10.1121/10.0034444" target="_blank">Paper</a>]
-            </div>
+        <div class="profile-ipa">
+            李丽珊 [li²¹³ li⁵¹ʂan⁵⁵]
         </div>
 
-        <div class="pub-item">
-            <span class="pub-title">Lexical competition in the process of Cantonese tone merging: Diverse Impact Mechanisms Across Different Individuals and Tone Pairs</span>
-            <div class="pub-meta"><strong>Li, L.</strong>, Zhou, Y., & Xu, X. (2025). <em>In Proc. of Interspeech 2025</em>. (<strong>Oral Presentation</strong>)</div>
-            <div class="pub-links">
-                [<a href="https://www.isca-archive.org/interspeech_2025/li25w_interspeech.html" target="_blank">PDF</a>] 
-            </div>
+        <div class="profile-title">
+            <strong>PhD Student in Linguistics</strong><br>
+            McGill University · Montréal, Canada
         </div>
-        
-        <div class="pub-item">
-            <span class="pub-title">Multiple Patterns of Merging Guangzhou Cantonese Tones in Production and Perception: Study on Youth Groups</span>
-            <div class="pub-meta"><strong>Li, L.</strong> & Xu, X. (2024). <em>In Proc. of ISCSLP 2024</em>. (<strong>Oral Presentation</strong>)</div>
-            <div class="pub-links">
-                [<a href="https://ieeexplore.ieee.org/abstract/document/10800304" target="_blank">Paper</a>] 
-            </div>
+
+        <div class="social-links">
+
+            <a href="mailto:lilishan0121@gmail.com"
+               class="social-btn">
+                📧 Email
+            </a>
+
+            <a href="./Lishan_Li_CV_2025.pdf"
+               class="social-btn">
+                📄 CV
+            </a>
+
+            <a href="https://www.researchgate.net/profile/Lishan-Li-3?ev=hdr_xprf"
+               class="social-btn"
+               target="_blank"
+               rel="noopener noreferrer">
+                🔬 ResearchGate
+            </a>
+
         </div>
 
     </div>
 
-    <div class="footer">
-        &copy; 2025 Lishan Li. Hosted on GitHub Pages.
-    </div>
 </div>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+
+<!-- ================= ABOUT ================= -->
+
+<div class="content-section" id="about">
+
+    <h2>Introduction</h2>
+
+    <p>
+        Hello! I am a PhD student in Linguistics at
+        <strong>McGill University</strong>,
+        working at the interface of
+        <strong>phonetics, phonology, and speech perception</strong>.
+    </p>
+
+    <p>
+        My research focuses on how phonological contrasts are
+        maintained, weakened, and reorganized through sound change,
+        with particular interests in individual variation,
+        acoustic cue weighting, and the relationship between
+        speech production and perception.
+    </p>
+
+    <p>
+        I am especially interested in how listeners adapt to
+        ongoing sound changes and how linguistic experience
+        shapes the perception of phonetic contrasts.
+        My work draws on experimental phonetics,
+        acoustic analysis, and statistical modeling,
+        with a particular focus on Cantonese tone variation
+        and merger.
+    </p>
+
+    <p>
+        Beyond sound change, I am interested in speech development
+        and the flexibility of phonetic representations
+        across different speaker populations.
+    </p>
+
+    <p>
+        Before joining McGill, I received my M.A. in
+        Chinese Linguistics from
+        <strong>Beijing Normal University</strong>
+        and my B.A. in Chinese Language and Literature
+        from <strong>Shandong University</strong>.
+    </p>
+
+</div>
+
+
+
+<!-- ================= RESEARCH ================= -->
+
+<div class="content-section" id="research">
+
+    <h2>Research Overview</h2>
+
+    <p>
+        My research investigates the relationship between
+        phonetic variation, speech perception, and
+        phonological structure, with an emphasis on
+        individual differences and the mechanisms
+        underlying sound change.
+    </p>
+
+
+    <h3>Research Interests</h3>
+
+
+    <div class="research-cards">
+
+
+        <!-- Research 1 -->
+
+        <div class="research-card">
+
+            <h4>
+                Sound Change &amp; Phonological Variation
+            </h4>
+
+            <p>
+                I investigate how phonetic variation develops
+                into phonological change, focusing on
+                Cantonese tone mergers, individual variability,
+                and the maintenance and reorganization
+                of phonological contrasts.
+            </p>
+
+        </div>
+
+
+        <!-- Research 2 -->
+
+        <div class="research-card">
+
+            <h4>
+                Speech Perception &amp; Cue Weighting
+            </h4>
+
+            <p>
+                I am interested in how listeners integrate
+                multiple acoustic cues during speech perception,
+                how cue weights vary across individuals,
+                and how perceptual strategies adapt to
+                different linguistic environments.
+            </p>
+
+        </div>
+
+
+        <!-- Research 3 -->
+
+        <div class="research-card">
+
+            <h4>
+                Production–Perception Relationships
+            </h4>
+
+            <p>
+                I examine how phonetic patterns in speech
+                production relate to perceptual categorization,
+                particularly in ongoing sound changes where
+                production and perception may follow
+                different developmental trajectories.
+            </p>
+
+        </div>
+
+
+        <!-- Research 4 -->
+
+        <div class="research-card">
+
+            <h4>
+                Speech Development &amp; Learning
+            </h4>
+
+            <p>
+                I am interested in the development and
+                flexibility of phonetic representations,
+                including children's speech production,
+                speech imitation, and the acquisition
+                of phonological contrasts.
+            </p>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- ================= FIELDWORK MAP ================= -->
+
+    <h3 style="
+        margin-top: 45px;
+        margin-bottom: 10px;
+        font-size: 1.3rem;
+        font-family: 'Inter', sans-serif;
+        font-weight: 600;
+    ">
+        🗺️ Data Sources &amp; Fieldwork
+    </h3>
+
+
+    <div id="map"></div>
+
+
+    <p style="
+        font-size: 0.9rem;
+        color: #666;
+        text-align: center;
+        margin-top: -10px;
+        margin-bottom: 0;
+    ">
+
+        <em>
+            Mapping my linguistic fieldwork across
+            China and Southeast Asia.
+        </em>
+
+    </p>
+
+</div>
+
+
+
+<!-- ================= PUBLICATIONS ================= -->
+
+<div class="content-section" id="publications">
+
+    <h2>Selected Publications</h2>
+
+    <div class="pub-list">
+
+
+        <!-- JASA 2026 -->
+
+        <div class="pub-item">
+
+            <span class="pub-title">
+                Multiple Patterns of Competing Tone Merging
+                in Guangzhou Cantonese:
+                A Production and Perception Study of Young Speakers
+            </span>
+
+            <div class="pub-meta">
+
+                <strong>Li, L.</strong> &amp; Lai, W. (2026).
+
+                <em>
+                    The Journal of the Acoustical Society
+                    of America (JASA)
+                </em>.
+
+                <strong>Accepted for publication.</strong>
+
+            </div>
+
+            <div class="pub-links">
+                <span style="color:#888; font-size:0.9rem;">
+                    DOI forthcoming
+                </span>
+            </div>
+
+        </div>
+
+
+
+        <!-- Interspeech 2025 -->
+
+        <div class="pub-item">
+
+            <span class="pub-title">
+                Lexical competition in the process of
+                Cantonese tone merging:
+                Diverse Impact Mechanisms Across
+                Different Individuals and Tone Pairs
+            </span>
+
+            <div class="pub-meta">
+
+                <strong>Li, L.</strong>,
+                Zhou, Y., &amp; Xu, X. (2025).
+
+                <em>
+                    Proceedings of Interspeech 2025
+                </em>.
+
+            </div>
+
+            <div class="pub-links">
+
+                [<a
+                    href="https://www.isca-archive.org/interspeech_2025/li25w_interspeech.html"
+                    target="_blank"
+                    rel="noopener noreferrer">
+                    Paper
+                </a>]
+
+            </div>
+
+        </div>
+
+
+
+        <!-- JASA 2024 -->
+
+        <div class="pub-item">
+
+            <span class="pub-title">
+                The influence of dialect loss on tone perception:
+                Diminishing voice quality cues
+                in preserved tone contrast
+            </span>
+
+            <div class="pub-meta">
+
+                Zhang, Y.,
+                <strong>Li, L.</strong>,
+                Lai, W., &amp; Xu, X. (2024).
+
+                <em>
+                    The Journal of the Acoustical Society
+                    of America
+                </em>,
+
+                156(6), 3707–3722.
+
+            </div>
+
+            <div class="pub-links">
+
+                [<a
+                    href="https://doi.org/10.1121/10.0034444"
+                    target="_blank"
+                    rel="noopener noreferrer">
+                    Paper
+                </a>]
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ISCSLP 2024 -->
+
+        <div class="pub-item">
+
+            <span class="pub-title">
+                Multiple Patterns of Merging Guangzhou
+                Cantonese Tones in Production and Perception:
+                Study on Youth Groups
+            </span>
+
+            <div class="pub-meta">
+
+                <strong>Li, L.</strong> &amp; Xu, X. (2024).
+
+                <em>
+                    Proceedings of ISCSLP 2024
+                </em>.
+
+            </div>
+
+            <div class="pub-links">
+
+                [<a
+                    href="https://ieeexplore.ieee.org/abstract/document/10800304"
+                    target="_blank"
+                    rel="noopener noreferrer">
+                    Paper
+                </a>]
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- ================= PRESENTATIONS ================= -->
+
+<div class="content-section" id="presentations">
+
+    <h2>Conference Presentations</h2>
+
+    <div class="pub-list">
+
+
+        <!-- NWAV 54 -->
+
+        <div class="pub-item">
+
+            <span class="pub-title">
+                Competing Pathways of Low-Tone Merger
+                in Guangzhou Cantonese
+            </span>
+
+            <div class="pub-meta">
+
+                <strong>Li, L.</strong> &amp; Lai, W.
+                (2026, October).
+
+                <em>
+                    New Ways of Analyzing Variation 54
+                    (NWAV 54)
+                </em>,
+
+                Montréal, Canada.
+
+                (Oral presentation)
+
+            </div>
+
+        </div>
+
+
+
+        <!-- Interspeech 2025 -->
+
+        <div class="pub-item">
+
+            <span class="pub-title">
+                Lexical competition in the process of
+                Cantonese tone merging:
+                Diverse Impact Mechanisms Across
+                Different Individuals and Tone Pairs
+            </span>
+
+            <div class="pub-meta">
+
+                <strong>Li, L.</strong>,
+                Zhou, Y., &amp; Xu, X. (2025).
+
+                <em>
+                    Interspeech 2025
+                </em>.
+
+                (Oral presentation)
+
+            </div>
+
+            <div class="pub-links">
+
+                [<a
+                    href="https://www.isca-archive.org/interspeech_2025/li25w_interspeech.html"
+                    target="_blank"
+                    rel="noopener noreferrer">
+                    Proceedings
+                </a>]
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ISCSLP 2024 -->
+
+        <div class="pub-item">
+
+            <span class="pub-title">
+                Multiple Patterns of Merging Guangzhou
+                Cantonese Tones in Production and Perception:
+                Study on Youth Groups
+            </span>
+
+            <div class="pub-meta">
+
+                <strong>Li, L.</strong> &amp; Xu, X.
+                (2024).
+
+                <em>
+                    ISCSLP 2024
+                </em>.
+
+                (Oral presentation)
+
+            </div>
+
+            <div class="pub-links">
+
+                [<a
+                    href="https://ieeexplore.ieee.org/abstract/document/10800304"
+                    target="_blank"
+                    rel="noopener noreferrer">
+                    Proceedings
+                </a>]
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- ================= FOOTER ================= -->
+
+<div class="footer">
+
+    &copy; 2026 Lishan Li.
+    Hosted on GitHub Pages.
+
+</div>
+
+
+</div>
+
+
+
+<!-- ================= LEAFLET SCRIPT ================= -->
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+</script>
+
+
 <script>
-    // 初始化地图
+
+    // Initialize map
+
     var map = L.map('map').setView([24.0, 110.0], 5);
 
-    // 添加图层
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
-        attribution: '&copy; OpenStreetMap'
-    }).addTo(map);
 
-    // 数据点
+    // Map tiles
+
+    L.tileLayer(
+        'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+        {
+            maxZoom: 19,
+            attribution: '&copy; OpenStreetMap'
+        }
+    ).addTo(map);
+
+
+
+    // Fieldwork locations
+
     const locations = [
-        { title: "广东广州粤语", loc: "Guangzhou, China", lat: 23.1291, lng: 113.2644, desc: "Cantonese (Guangzhou)" },
-        { title: "广东罗定粤语", loc: "Luoding, China", lat: 22.7697, lng: 111.5697, desc: "Cantonese (Luoding)" },
-        { title: "山东五莲冀鲁官话", loc: "Wulian, China", lat: 35.7506, lng: 119.2076, desc: "Ji-Lu Mandarin" },
-        { title: "秦皇岛昌黎冀鲁官话", loc: "Changli, China", lat: 39.7047, lng: 119.1660, desc: "Jiao-Liao Mandarin" },
-        { title: "湖南长沙湘方言", loc: "Changsha, China", lat: 28.2282, lng: 112.9388, desc: "Xiang Dialect" },
-        { title: "柬埔寨金边方言", loc: "Phnom Penh, Cambodia", lat: 11.5564, lng: 104.9282, desc: "Khmer" },
-        { title: "泰语素攀方言", loc: "Suphan Buri, Thailand", lat: 14.4745, lng: 100.1177, desc: "Thai Dialect" }
+
+        {
+            title: "广东广州粤语",
+            loc: "Guangzhou, China",
+            lat: 23.1291,
+            lng: 113.2644,
+            desc: "Cantonese (Guangzhou)"
+        },
+
+        {
+            title: "广东罗定粤语",
+            loc: "Luoding, China",
+            lat: 22.7697,
+            lng: 111.5697,
+            desc: "Cantonese (Luoding)"
+        },
+
+        {
+            title: "山东五莲冀鲁官话",
+            loc: "Wulian, China",
+            lat: 35.7506,
+            lng: 119.2076,
+            desc: "Ji-Lu Mandarin"
+        },
+
+        {
+            title: "秦皇岛昌黎冀鲁官话",
+            loc: "Changli, China",
+            lat: 39.7047,
+            lng: 119.1660,
+            desc: "Jiao-Liao Mandarin"
+        },
+
+        {
+            title: "湖南长沙湘方言",
+            loc: "Changsha, China",
+            lat: 28.2282,
+            lng: 112.9388,
+            desc: "Xiang Dialect"
+        },
+
+        {
+            title: "柬埔寨金边方言",
+            loc: "Phnom Penh, Cambodia",
+            lat: 11.5564,
+            lng: 104.9282,
+            desc: "Khmer"
+        },
+
+        {
+            title: "泰语素攀方言",
+            loc: "Suphan Buri, Thailand",
+            lat: 14.4745,
+            lng: 100.1177,
+            desc: "Thai Dialect"
+        }
+
     ];
 
-    // 循环添加标记
+
+
+    // Add markers
+
     locations.forEach(function(item) {
-        var marker = L.marker([item.lat, item.lng]).addTo(map);
+
+        var marker = L.marker([
+            item.lat,
+            item.lng
+        ]).addTo(map);
+
         marker.bindPopup(`
-            <div class="dial-title">${item.title}</div>
-            <div class="dial-loc">📍 ${item.loc}</div>
-            <div style="font-size:0.9em; margin-top:3px;">${item.desc}</div>
+
+            <div class="dial-title">
+                ${item.title}
+            </div>
+
+            <div class="dial-loc">
+                📍 ${item.loc}
+            </div>
+
+            <div style="
+                font-size:0.9em;
+                margin-top:3px;
+            ">
+                ${item.desc}
+            </div>
+
         `);
+
     });
+
+
 </script>
+
 
 </body>
 </html>
